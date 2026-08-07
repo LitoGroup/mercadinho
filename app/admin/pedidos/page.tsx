@@ -59,7 +59,7 @@ export default async function AdminOrdersPage({
     <div>
       <h1 className="mb-4 text-xl font-bold text-gray-900">Conferência de pedidos</h1>
 
-      <form className="mb-4 flex flex-wrap items-end gap-3">
+      <form className="mb-4 grid grid-cols-2 items-end gap-3 sm:flex sm:flex-wrap">
         <div>
           <label htmlFor="mes" className="mb-1 block text-xs font-medium text-gray-500">
             Mês
@@ -68,7 +68,7 @@ export default async function AdminOrdersPage({
             id="mes"
             name="mes"
             defaultValue={mes}
-            className="rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm"
+            className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm sm:w-auto"
           >
             {months.map((m) => (
               <option key={m.value} value={m.value}>
@@ -86,7 +86,7 @@ export default async function AdminOrdersPage({
             id="dia"
             name="dia"
             defaultValue={dia ?? ''}
-            className="rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm"
+            className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm sm:w-auto"
           />
         </div>
         <div>
@@ -97,7 +97,7 @@ export default async function AdminOrdersPage({
             id="status"
             name="status"
             defaultValue={status ?? ''}
-            className="rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm"
+            className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm sm:w-auto"
           >
             <option value="">Todos</option>
             <option value="pending">Aguardando</option>
@@ -107,7 +107,7 @@ export default async function AdminOrdersPage({
         </div>
         <button
           type="submit"
-          className="rounded-lg bg-cafe px-4 py-2 text-sm font-semibold text-white hover:opacity-90"
+          className="w-full rounded-lg bg-cafe px-4 py-2 text-sm font-semibold text-white hover:opacity-90 sm:w-auto"
         >
           Filtrar
         </button>
@@ -145,8 +145,38 @@ export default async function AdminOrdersPage({
       {orders.length === 0 ? (
         <p className="py-16 text-center text-gray-500">Nenhum pedido nesse período.</p>
       ) : (
-        <div className="overflow-x-auto rounded-xl border border-gray-100 bg-white shadow-sm">
-          <table className="w-full text-sm">
+        <>
+          {/* Celular: cada pedido é um cartão tocável, sem rolagem lateral */}
+          <ul className="space-y-3 sm:hidden">
+            {orders.map((o) => (
+              <li key={o.id}>
+                <Link
+                  href={`/admin/pedidos/${o.id}`}
+                  className="block rounded-xl border border-gray-100 bg-white p-4 shadow-sm active:bg-gray-50"
+                >
+                  <div className="flex items-start justify-between gap-3">
+                    <div className="min-w-0">
+                      <p className="truncate font-semibold text-gray-900">
+                        {o.profiles?.name ?? '—'}
+                      </p>
+                      <p className="text-xs text-gray-500">{formatDate(o.created_at)}</p>
+                    </div>
+                    <p className="shrink-0 font-bold text-feira-dark">
+                      {formatCents(o.total_cents)}
+                    </p>
+                  </div>
+                  <div className="mt-3 flex items-center justify-between gap-2">
+                    <OrderStatusBadge status={o.status} />
+                    <span className="text-sm font-semibold text-feira-dark">Conferir →</span>
+                  </div>
+                </Link>
+              </li>
+            ))}
+          </ul>
+
+          {/* Desktop: tabela */}
+          <div className="hidden rounded-xl border border-gray-100 bg-white shadow-sm sm:block">
+            <table className="w-full text-sm">
             <thead className="bg-gray-50 text-left text-gray-500">
               <tr>
                 <th className="p-3">Data</th>
@@ -175,9 +205,10 @@ export default async function AdminOrdersPage({
                   </td>
                 </tr>
               ))}
-            </tbody>
-          </table>
-        </div>
+              </tbody>
+            </table>
+          </div>
+        </>
       )}
     </div>
   )

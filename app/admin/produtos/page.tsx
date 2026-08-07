@@ -27,8 +27,53 @@ export default async function AdminProductsPage() {
           Nenhum produto ainda. Cadastre o primeiro!
         </p>
       ) : (
-        <div className="overflow-x-auto rounded-xl border border-gray-100 bg-white shadow-sm">
-          <table className="w-full text-sm">
+        <>
+          {/* Celular: cartões */}
+          <ul className="space-y-3 sm:hidden">
+            {products.map((p) => {
+              const img = productImageUrl(p.image_path)
+              return (
+                <li key={p.id}>
+                  <Link
+                    href={`/admin/produtos/${p.id}`}
+                    className={`flex items-center gap-3 rounded-xl border border-gray-100 bg-white p-3 shadow-sm active:bg-gray-50 ${
+                      p.active ? '' : 'opacity-60'
+                    }`}
+                  >
+                    <div className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-gray-100">
+                      {img ? (
+                        // eslint-disable-next-line @next/next/no-img-element
+                        <img src={img} alt="" className="h-full w-full object-cover" />
+                      ) : (
+                        <ShoppingBag className="h-5 w-5 text-cafe/25" />
+                      )}
+                    </div>
+                    <div className="min-w-0 flex-1">
+                      <p className="truncate font-medium text-gray-900">{p.name}</p>
+                      <p className="text-xs text-gray-400">
+                        {p.category}
+                        {!p.active && ' · inativo'}
+                      </p>
+                    </div>
+                    <div className="shrink-0 text-right">
+                      <p className="font-semibold text-gray-900">{formatCents(p.price_cents)}</p>
+                      <p
+                        className={`text-xs ${
+                          p.stock === 0 ? 'font-semibold text-tomate-dark' : 'text-gray-400'
+                        }`}
+                      >
+                        {p.stock} em estoque
+                      </p>
+                    </div>
+                  </Link>
+                </li>
+              )
+            })}
+          </ul>
+
+          {/* Desktop: tabela */}
+          <div className="hidden rounded-xl border border-gray-100 bg-white shadow-sm sm:block">
+            <table className="w-full text-sm">
             <thead className="bg-gray-50 text-left text-gray-500">
               <tr>
                 <th className="p-3">Produto</th>
@@ -85,9 +130,10 @@ export default async function AdminProductsPage() {
                   </tr>
                 )
               })}
-            </tbody>
-          </table>
-        </div>
+              </tbody>
+            </table>
+          </div>
+        </>
       )}
     </div>
   )

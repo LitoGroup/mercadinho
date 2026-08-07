@@ -76,8 +76,46 @@ export default async function AdminStockPage({
           {q ? 'Nenhum produto encontrado.' : 'Nenhum produto cadastrado ainda.'}
         </p>
       ) : (
-        <div className="overflow-x-auto rounded-xl border border-gray-100 bg-white shadow-sm">
-          <table className="w-full text-sm">
+        <>
+          {/* Celular: cartões com os controles de estoque embaixo */}
+          <ul className="space-y-3 sm:hidden">
+            {products.map((p) => (
+              <li
+                key={p.id}
+                className={`rounded-xl border border-gray-100 bg-white p-3 shadow-sm ${
+                  p.active ? '' : 'opacity-60'
+                }`}
+              >
+                <div className="flex items-start justify-between gap-3">
+                  <div className="min-w-0">
+                    <Link
+                      href={`/admin/produtos/${p.id}`}
+                      className="block truncate font-medium text-gray-900"
+                    >
+                      {p.name}
+                    </Link>
+                    <p className="text-xs text-gray-400">
+                      {formatCents(p.price_cents)}
+                      {!p.active && ' · inativo'}
+                      {p.active && p.stock === 0 && (
+                        <span className="ml-1 font-semibold text-tomate-dark">· esgotado</span>
+                      )}
+                      {p.active && p.stock > 0 && p.stock <= 5 && (
+                        <span className="ml-1 font-semibold text-amber-600">· acabando</span>
+                      )}
+                    </p>
+                  </div>
+                </div>
+                <div className="mt-3 border-t border-gray-50 pt-3">
+                  <StockControls productId={p.id} stock={p.stock} />
+                </div>
+              </li>
+            ))}
+          </ul>
+
+          {/* Desktop: tabela */}
+          <div className="hidden rounded-xl border border-gray-100 bg-white shadow-sm sm:block">
+            <table className="w-full text-sm">
             <thead className="bg-gray-50 text-left text-gray-500">
               <tr>
                 <th className="p-3">Produto</th>
@@ -112,9 +150,10 @@ export default async function AdminStockPage({
                   </td>
                 </tr>
               ))}
-            </tbody>
-          </table>
-        </div>
+              </tbody>
+            </table>
+          </div>
+        </>
       )}
 
       <h2 className="mb-2 mt-6 font-semibold text-gray-700">Últimas movimentações</h2>

@@ -22,7 +22,42 @@ export default async function AdminUsersPage() {
 
       <UserForm />
 
-      <div className="overflow-x-auto rounded-xl border border-gray-100 bg-white shadow-sm">
+      {/* Celular: cartões */}
+      <ul className="space-y-3 sm:hidden">
+        {users.map((u) => (
+          <li
+            key={u.id}
+            className={`rounded-xl border border-gray-100 bg-white p-3 shadow-sm ${
+              u.active ? '' : 'opacity-60'
+            }`}
+          >
+            <div className="flex items-start justify-between gap-3">
+              <div className="min-w-0">
+                <p className="truncate font-medium text-gray-900">
+                  {u.name}
+                  {u.id === me.id && <span className="ml-1 text-xs text-gray-400">(você)</span>}
+                </p>
+                <p className="truncate text-xs text-gray-500">{emailById.get(u.id) ?? '—'}</p>
+              </div>
+              <span
+                className={`shrink-0 rounded-full px-2 py-0.5 text-xs font-semibold ${
+                  u.role === 'admin' ? 'bg-violet-100 text-violet-700' : 'bg-gray-100 text-gray-600'
+                }`}
+              >
+                {u.role === 'admin' ? 'Admin' : 'Cliente'}
+              </span>
+            </div>
+            {u.id !== me.id && (
+              <div className="mt-3 border-t border-gray-50 pt-3">
+                <UserActiveToggle userId={u.id} active={u.active} />
+              </div>
+            )}
+          </li>
+        ))}
+      </ul>
+
+      {/* Desktop: tabela */}
+      <div className="hidden rounded-xl border border-gray-100 bg-white shadow-sm sm:block">
         <table className="w-full text-sm">
           <thead className="bg-gray-50 text-left text-gray-500">
             <tr>
