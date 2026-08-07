@@ -44,7 +44,7 @@ export default async function AdminOrdersPage({
   const supabase = await createServerSupabase()
   let query = supabase
     .from('orders')
-    .select('*, profiles(name)')
+    .select('*, profiles:user_id(name)')
     .gte('created_at', start)
     .lt('created_at', end)
     .order('created_at', { ascending: false })

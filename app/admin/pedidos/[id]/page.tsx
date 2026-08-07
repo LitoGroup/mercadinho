@@ -16,7 +16,7 @@ export default async function AdminOrderDetailPage({
   const supabase = await createServerSupabase()
   const { data } = await supabase
     .from('orders')
-    .select('*, order_items(*), profiles(name)')
+    .select('*, order_items(*), profiles:user_id(name)')
     .eq('id', id)
     .single<Order>()
 
