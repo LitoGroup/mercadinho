@@ -1,22 +1,15 @@
 'use server'
 
 import { revalidatePath } from 'next/cache'
-import { randomUUID } from 'node:crypto'
 import { createServerSupabase } from '@/lib/supabase/server'
-
-const ALLOWED_TYPES: Record<string, string> = {
-  'application/pdf': 'pdf',
-  'image/jpeg': 'jpg',
-  'image/png': 'png',
-  'image/webp': 'webp',
-}
-const MAX_SIZE = 10 * 1024 * 1024
 
 export interface PlaceOrderState {
   error?: string
   ok?: boolean
 }
 
+// O comprovante sobe direto do navegador para o bucket privado (RLS garante
+// que cada usuário só escreve no próprio prefixo); aqui chega só o caminho.
 export async function placeOrder(
   _prev: PlaceOrderState,
   formData: FormData
@@ -37,32 +30,19 @@ export async function placeOrder(
     return { error: 'Seu carrinho está vazio.' }
   }
 
-  const receipt = formData.get('receipt')
-  if (!(receipt instanceof File) || receipt.size === 0) {
+  const receiptPath = String(formData.get('receipt_path') ?? '')
+  if (!receiptPath) {
     return { error: 'Envie o comprovante do PIX (PDF ou imagem).' }
   }
-  const ext = ALLOWED_TYPES[receipt.type]
-  if (!ext) {
-    return { error: 'Formato inválido. Envie PDF, JPG, PNG ou WebP.' }
-  }
-  if (receipt.size > MAX_SIZE) {
-    return { error: 'Comprovante muito grande (máx. 10 MB).' }
-  }
-
-  const path = `${user.id}/${randomUUID()}.${ext}`
-  const { error: uploadError } = await supabase.storage
-    .from('receipts')
-    .upload(path, receipt, { contentType: receipt.type })
-  if (uploadError) {
-    return { error: 'Falha ao enviar o comprovante. Tente novamente.' }
+  if (!receiptPath.startsWith(`${user.id}/`)) {
+    return { error: 'Comprovante inválido. Tente novamente.' }
   }
 
   const { error: orderError } = await supabase.rpc('create_order', {
     p_items: items,
-    p_receipt_path: path,
+    p_receipt_path: receiptPath,
   })
   if (orderError) {
-    await supabase.storage.from('receipts').remove([path])
     if (orderError.message.includes('estoque')) {
       return { error: 'Um dos produtos ficou sem estoque. Ajuste o carrinho e tente de novo.' }
     }

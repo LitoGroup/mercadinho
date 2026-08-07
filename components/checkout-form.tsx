@@ -2,10 +2,19 @@
 
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
-import { useActionState, useEffect, useState } from 'react'
+import { startTransition, useActionState, useEffect, useRef, useState } from 'react'
 import { placeOrder, type PlaceOrderState } from '@/app/actions/orders'
 import { useCart } from '@/components/cart-provider'
 import { formatCents } from '@/lib/format'
+import { createClient } from '@/lib/supabase/client'
+
+const ALLOWED_TYPES: Record<string, string> = {
+  'application/pdf': 'pdf',
+  'image/jpeg': 'jpg',
+  'image/png': 'png',
+  'image/webp': 'webp',
+}
+const MAX_SIZE = 10 * 1024 * 1024
 
 export function CheckoutForm({
   pixConfigured,
@@ -22,8 +31,17 @@ export function CheckoutForm({
 }) {
   const router = useRouter()
   const { items, totalCents, clear } = useCart()
-  const [state, formAction, pending] = useActionState<PlaceOrderState, FormData>(placeOrder, {})
+  const [state, formAction, actionPending] = useActionState<PlaceOrderState, FormData>(
+    placeOrder,
+    {}
+  )
+  const [uploading, setUploading] = useState(false)
+  const [localError, setLocalError] = useState<string | null>(null)
   const [copied, setCopied] = useState<'chave' | 'codigo' | null>(null)
+  const fileRef = useRef<HTMLInputElement>(null)
+
+  const pending = uploading || actionPending
+  const error = localError ?? state.error
 
   useEffect(() => {
     if (state.ok) {
@@ -48,6 +66,59 @@ export function CheckoutForm({
     await navigator.clipboard.writeText(text)
     setCopied(which)
     setTimeout(() => setCopied(null), 2000)
+  }
+
+  async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
+    e.preventDefault()
+    setLocalError(null)
+
+    const file = fileRef.current?.files?.[0]
+    if (!file || file.size === 0) {
+      setLocalError('Envie o comprovante do PIX (PDF ou imagem).')
+      return
+    }
+    const ext = ALLOWED_TYPES[file.type]
+    if (!ext) {
+      setLocalError('Formato inválido. Envie PDF, JPG, PNG ou WebP.')
+      return
+    }
+    if (file.size > MAX_SIZE) {
+      setLocalError('Comprovante muito grande (máx. 10 MB).')
+      return
+    }
+
+    setUploading(true)
+    try {
+      const supabase = createClient()
+      const {
+        data: { user },
+      } = await supabase.auth.getUser()
+      if (!user) {
+        setLocalError('Sessão expirada. Entre novamente.')
+        return
+      }
+
+      // Upload direto para o bucket privado — não passa pela server action,
+      // então comprovantes grandes não estouram o limite de body.
+      const path = `${user.id}/${crypto.randomUUID()}.${ext}`
+      const { error: uploadError } = await supabase.storage
+        .from('receipts')
+        .upload(path, file, { contentType: file.type })
+      if (uploadError) {
+        setLocalError('Falha ao enviar o comprovante. Verifique a conexão e tente de novo.')
+        return
+      }
+
+      const fd = new FormData()
+      fd.set(
+        'items',
+        JSON.stringify(items.map((i) => ({ product_id: i.productId, quantity: i.qty })))
+      )
+      fd.set('receipt_path', path)
+      startTransition(() => formAction(fd))
+    } finally {
+      setUploading(false)
+    }
   }
 
   return (
@@ -114,17 +185,13 @@ export function CheckoutForm({
       </section>
 
       {/* Comprovante */}
-      <form action={formAction} className="rounded-xl border border-gray-100 bg-white p-4 shadow-sm">
+      <form onSubmit={handleSubmit} className="rounded-xl border border-gray-100 bg-white p-4 shadow-sm">
         <h2 className="mb-1 font-semibold text-gray-700">2. Envie o comprovante</h2>
         <p className="mb-3 text-sm text-gray-500">
           Anexe o comprovante do PIX (PDF ou foto) para concluir o pedido.
         </p>
         <input
-          type="hidden"
-          name="items"
-          value={JSON.stringify(items.map((i) => ({ product_id: i.productId, quantity: i.qty })))}
-        />
-        <input
+          ref={fileRef}
           type="file"
           name="receipt"
           required
@@ -132,16 +199,14 @@ export function CheckoutForm({
           className="w-full rounded-lg border border-dashed border-gray-300 p-3 text-sm file:mr-3 file:rounded-lg file:border-0 file:bg-feira file:px-3 file:py-1.5 file:font-semibold file:text-white"
         />
 
-        {state.error && (
-          <p className="mt-3 rounded-lg bg-red-50 p-3 text-sm text-red-700">{state.error}</p>
-        )}
+        {error && <p className="mt-3 rounded-lg bg-red-50 p-3 text-sm text-red-700">{error}</p>}
 
         <button
           type="submit"
           disabled={pending || !pixConfigured}
-          className="mt-4 w-full rounded-xl bg-feira py-3 font-bold text-white hover:bg-feira-dark disabled:cursor-not-allowed disabled:bg-gray-300"
+          className="mt-4 w-full rounded-xl bg-feira py-3 font-bold text-white transition hover:bg-feira-dark disabled:cursor-not-allowed disabled:bg-gray-300"
         >
-          {pending ? 'Enviando…' : 'Concluir pedido'}
+          {uploading ? 'Enviando comprovante…' : actionPending ? 'Registrando pedido…' : 'Concluir pedido'}
         </button>
       </form>
     </div>
