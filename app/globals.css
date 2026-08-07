@@ -25,6 +25,15 @@ body {
   outline-offset: 2px;
 }
 
+/* iOS dá zoom em inputs com fonte < 16px — trava em 16px no mobile */
+@media (max-width: 640px) {
+  input,
+  select,
+  textarea {
+    font-size: 16px;
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,

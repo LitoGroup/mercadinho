@@ -30,7 +30,7 @@ export function ShopHeader({
           <span className="hidden text-cafe/50 md:inline">Oi, {firstName}!</span>
           <Link
             href="/pedidos"
-            className="rounded-lg px-2 py-1.5 font-medium text-cafe/70 hover:bg-creme"
+            className="hidden rounded-lg px-2 py-1.5 font-medium text-cafe/70 hover:bg-creme sm:block"
           >
             Meus pedidos
           </Link>
@@ -44,7 +44,7 @@ export function ShopHeader({
           )}
           <Link
             href="/carrinho"
-            className="relative rounded-xl bg-tomate px-3 py-1.5 font-slab text-white shadow-[0_3px_0_0] shadow-tomate-dark transition hover:brightness-105 active:translate-y-0.5 active:shadow-none"
+            className="relative hidden rounded-xl bg-tomate px-3 py-1.5 font-slab text-white shadow-[0_3px_0_0] shadow-tomate-dark transition hover:brightness-105 active:translate-y-0.5 active:shadow-none sm:block"
           >
             🧺
             <span className="ml-1 hidden sm:inline">Carrinho</span>

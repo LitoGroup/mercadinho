@@ -1,4 +1,4 @@
-import type { Metadata } from 'next'
+import type { Metadata, Viewport } from 'next'
 import { Alfa_Slab_One, Archivo } from 'next/font/google'
 import './globals.css'
 
@@ -16,6 +16,18 @@ const body = Archivo({
 export const metadata: Metadata = {
   title: 'Mercadinho do Lito',
   description: 'O mercadinho da firma — pegue, pague no PIX, pronto.',
+  appleWebApp: {
+    capable: true,
+    title: 'Mercadinho',
+    statusBarStyle: 'default',
+  },
+}
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  viewportFit: 'cover',
+  themeColor: '#FBF3E0',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {

@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { signOut } from '@/app/actions/auth'
+import { AdminBottomNav } from '@/components/admin-bottom-nav'
 import { Awning } from '@/components/awning'
 import { requireAdmin } from '@/lib/auth'
 
@@ -28,7 +29,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
               <Link
                 key={item.href}
                 href={item.href}
-                className="whitespace-nowrap rounded-lg px-2.5 py-1.5 font-medium hover:bg-white/10"
+                className="hidden whitespace-nowrap rounded-lg px-2.5 py-1.5 font-medium hover:bg-white/10 sm:block"
               >
                 {item.label}
               </Link>
@@ -51,7 +52,8 @@ export default async function AdminLayout({ children }: { children: React.ReactN
         </div>
         <Awning stripe="#0E6B3A" />
       </header>
-      <main className="mx-auto max-w-5xl px-4 py-6">{children}</main>
+      <main className="mx-auto max-w-5xl px-4 py-6 pb-28 sm:pb-6">{children}</main>
+      <AdminBottomNav />
     </div>
   )
 }
