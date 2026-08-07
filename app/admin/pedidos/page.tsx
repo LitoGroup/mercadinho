@@ -19,18 +19,27 @@ function monthOptions(): { value: string; label: string }[] {
 export default async function AdminOrdersPage({
   searchParams,
 }: {
-  searchParams: Promise<{ mes?: string; status?: string }>
+  searchParams: Promise<{ mes?: string; dia?: string; status?: string }>
 }) {
   const params = await searchParams
   const months = monthOptions()
   const mes = params.mes && /^\d{4}-\d{2}$/.test(params.mes) ? params.mes : months[0].value
+  const dia = params.dia && /^\d{4}-\d{2}-\d{2}$/.test(params.dia) ? params.dia : undefined
   const status = ['pending', 'approved', 'rejected'].includes(params.status ?? '')
     ? (params.status as OrderStatus)
     : undefined
 
-  const [year, month] = mes.split('-').map(Number)
-  const start = new Date(year, month - 1, 1).toISOString()
-  const end = new Date(year, month, 1).toISOString()
+  let start: string
+  let end: string
+  if (dia) {
+    const [y, m, d] = dia.split('-').map(Number)
+    start = new Date(y, m - 1, d).toISOString()
+    end = new Date(y, m - 1, d + 1).toISOString()
+  } else {
+    const [year, month] = mes.split('-').map(Number)
+    start = new Date(year, month - 1, 1).toISOString()
+    end = new Date(year, month, 1).toISOString()
+  }
 
   const supabase = await createServerSupabase()
   let query = supabase
@@ -69,6 +78,18 @@ export default async function AdminOrdersPage({
           </select>
         </div>
         <div>
+          <label htmlFor="dia" className="mb-1 block text-xs font-medium text-gray-500">
+            Dia (opcional)
+          </label>
+          <input
+            type="date"
+            id="dia"
+            name="dia"
+            defaultValue={dia ?? ''}
+            className="rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm"
+          />
+        </div>
+        <div>
           <label htmlFor="status" className="mb-1 block text-xs font-medium text-gray-500">
             Status
           </label>
@@ -86,11 +107,25 @@ export default async function AdminOrdersPage({
         </div>
         <button
           type="submit"
-          className="rounded-lg bg-slate-800 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-700"
+          className="rounded-lg bg-cafe px-4 py-2 text-sm font-semibold text-white hover:opacity-90"
         >
           Filtrar
         </button>
+        {dia && (
+          <Link
+            href={`/admin/pedidos?mes=${mes}${status ? `&status=${status}` : ''}`}
+            className="pb-2 text-sm font-medium text-tomate-dark underline"
+          >
+            Limpar dia
+          </Link>
+        )}
       </form>
+
+      {dia && (
+        <p className="mb-3 -mt-1 text-sm text-gray-500">
+          Mostrando pedidos de <strong>{dia.split('-').reverse().join('/')}</strong>.
+        </p>
+      )}
 
       <div className="mb-4 grid grid-cols-3 gap-3 text-center">
         <div className="rounded-xl border border-gray-100 bg-white p-3 shadow-sm">

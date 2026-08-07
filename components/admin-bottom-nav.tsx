@@ -6,6 +6,7 @@ import { usePathname } from 'next/navigation'
 const TABS = [
   { href: '/admin/pedidos', icon: '🧾', label: 'Pedidos' },
   { href: '/admin/produtos', icon: '🥫', label: 'Produtos' },
+  { href: '/admin/estoque', icon: '📦', label: 'Estoque' },
   { href: '/admin/usuarios', icon: '👥', label: 'Usuários' },
   { href: '/admin/config', icon: '⚙️', label: 'Config' },
 ]
@@ -18,7 +19,7 @@ export function AdminBottomNav() {
       className="fixed inset-x-0 bottom-0 z-20 border-t border-white/10 bg-cafe pb-[env(safe-area-inset-bottom)] sm:hidden"
       aria-label="Navegação da gerência"
     >
-      <div className="grid grid-cols-4">
+      <div className="grid grid-cols-5">
         {TABS.map((tab) => {
           const active = pathname.startsWith(tab.href)
           return (

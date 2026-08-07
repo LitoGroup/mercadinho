@@ -6,6 +6,55 @@ import { randomUUID } from 'node:crypto'
 import { requireAdmin } from '@/lib/auth'
 import { createServerSupabase } from '@/lib/supabase/server'
 
+export async function adjustStock(
+  productId: string,
+  delta: number
+): Promise<{ error?: string; stock?: number }> {
+  await requireAdmin()
+  const supabase = await createServerSupabase()
+
+  const { data: product } = await supabase
+    .from('products')
+    .select('stock')
+    .eq('id', productId)
+    .single()
+  if (!product) return { error: 'Produto não encontrado.' }
+
+  const newStock = product.stock + delta
+  if (newStock < 0) return { error: 'O estoque não pode ficar negativo.' }
+
+  const { error } = await supabase
+    .from('products')
+    .update({ stock: newStock })
+    .eq('id', productId)
+  if (error) return { error: 'Não foi possível atualizar o estoque.' }
+
+  revalidatePath('/admin/estoque')
+  revalidatePath('/admin/produtos')
+  revalidatePath('/')
+  return { stock: newStock }
+}
+
+export async function setStock(
+  productId: string,
+  value: number
+): Promise<{ error?: string; stock?: number }> {
+  await requireAdmin()
+  if (!Number.isInteger(value) || value < 0) return { error: 'Valor de estoque inválido.' }
+  const supabase = await createServerSupabase()
+
+  const { error } = await supabase
+    .from('products')
+    .update({ stock: value })
+    .eq('id', productId)
+  if (error) return { error: 'Não foi possível atualizar o estoque.' }
+
+  revalidatePath('/admin/estoque')
+  revalidatePath('/admin/produtos')
+  revalidatePath('/')
+  return { stock: value }
+}
+
 export interface SaveProductState {
   error?: string
 }
