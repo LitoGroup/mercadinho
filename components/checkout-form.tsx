@@ -37,7 +37,7 @@ export function CheckoutForm({
     return (
       <div className="py-16 text-center">
         <p className="text-gray-500">Seu carrinho está vazio.</p>
-        <Link href="/" className="mt-3 inline-block font-semibold text-emerald-700 underline">
+        <Link href="/" className="mt-3 inline-block font-semibold text-feira-dark underline">
           Voltar ao catálogo
         </Link>
       </div>
@@ -69,7 +69,7 @@ export function CheckoutForm({
         </ul>
         <div className="mt-2 flex justify-between border-t border-gray-100 pt-2 font-bold">
           <span>Total a pagar</span>
-          <span className="text-emerald-700">{formatCents(totalCents)}</span>
+          <span className="text-feira-dark">{formatCents(totalCents)}</span>
         </div>
       </section>
 
@@ -95,7 +95,7 @@ export function CheckoutForm({
               <button
                 type="button"
                 onClick={() => copy(pixKey, 'chave')}
-                className="flex-1 rounded-lg border border-emerald-200 px-3 py-2 text-sm font-medium text-emerald-700 hover:bg-emerald-50"
+                className="flex-1 rounded-lg border border-feira/40 px-3 py-2 text-sm font-medium text-feira-dark hover:bg-feira/10"
               >
                 {copied === 'chave' ? 'Chave copiada ✓' : 'Copiar chave PIX'}
               </button>
@@ -103,7 +103,7 @@ export function CheckoutForm({
                 <button
                   type="button"
                   onClick={() => copy(pixPayload, 'codigo')}
-                  className="flex-1 rounded-lg border border-emerald-200 px-3 py-2 text-sm font-medium text-emerald-700 hover:bg-emerald-50"
+                  className="flex-1 rounded-lg border border-feira/40 px-3 py-2 text-sm font-medium text-feira-dark hover:bg-feira/10"
                 >
                   {copied === 'codigo' ? 'Código copiado ✓' : 'PIX copia e cola'}
                 </button>
@@ -129,7 +129,7 @@ export function CheckoutForm({
           name="receipt"
           required
           accept="application/pdf,image/jpeg,image/png,image/webp"
-          className="w-full rounded-lg border border-dashed border-gray-300 p-3 text-sm file:mr-3 file:rounded-lg file:border-0 file:bg-emerald-600 file:px-3 file:py-1.5 file:font-semibold file:text-white"
+          className="w-full rounded-lg border border-dashed border-gray-300 p-3 text-sm file:mr-3 file:rounded-lg file:border-0 file:bg-feira file:px-3 file:py-1.5 file:font-semibold file:text-white"
         />
 
         {state.error && (
@@ -139,7 +139,7 @@ export function CheckoutForm({
         <button
           type="submit"
           disabled={pending || !pixConfigured}
-          className="mt-4 w-full rounded-xl bg-emerald-600 py-3 font-bold text-white hover:bg-emerald-700 disabled:cursor-not-allowed disabled:bg-gray-300"
+          className="mt-4 w-full rounded-xl bg-feira py-3 font-bold text-white hover:bg-feira-dark disabled:cursor-not-allowed disabled:bg-gray-300"
         >
           {pending ? 'Enviando…' : 'Concluir pedido'}
         </button>

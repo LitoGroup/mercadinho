@@ -23,7 +23,7 @@ export default async function MyOrdersPage({
       <h1 className="mb-4 text-xl font-bold text-gray-900">Meus pedidos</h1>
 
       {sucesso && (
-        <p className="mb-4 rounded-xl bg-emerald-100 p-4 text-sm font-medium text-emerald-800">
+        <p className="mb-4 rounded-xl bg-feira/15 p-4 text-sm font-medium text-feira-dark">
           🎉 Pedido enviado! Ele será conferido pelo administrador.
         </p>
       )}
@@ -39,7 +39,7 @@ export default async function MyOrdersPage({
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <div>
                     <p className="text-sm text-gray-500">{formatDate(order.created_at)}</p>
-                    <p className="font-bold text-emerald-700">{formatCents(order.total_cents)}</p>
+                    <p className="font-bold text-feira-dark">{formatCents(order.total_cents)}</p>
                   </div>
                   <OrderStatusBadge status={order.status} />
                 </div>
@@ -66,7 +66,7 @@ export default async function MyOrdersPage({
                     href={receiptUrl}
                     target="_blank"
                     rel="noreferrer"
-                    className="mt-3 inline-block text-sm font-medium text-emerald-700 underline"
+                    className="mt-3 inline-block text-sm font-medium text-feira-dark underline"
                   >
                     Ver comprovante enviado
                   </a>

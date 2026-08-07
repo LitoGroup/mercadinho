@@ -12,7 +12,7 @@ export function UserForm() {
   }, [state.ok])
 
   const inputCls =
-    'w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-emerald-500 focus:outline-none'
+    'w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-feira focus:outline-none'
 
   return (
     <form
@@ -41,7 +41,7 @@ export function UserForm() {
         <p className="mt-3 rounded-lg bg-red-50 p-3 text-sm text-red-700">{state.error}</p>
       )}
       {state.ok && (
-        <p className="mt-3 rounded-lg bg-emerald-50 p-3 text-sm text-emerald-700">
+        <p className="mt-3 rounded-lg bg-feira/10 p-3 text-sm text-feira-dark">
           Usuário criado! Compartilhe o email e a senha temporária com a pessoa.
         </p>
       )}
@@ -49,7 +49,7 @@ export function UserForm() {
       <button
         type="submit"
         disabled={pending}
-        className="mt-3 rounded-lg bg-emerald-600 px-4 py-2 font-semibold text-white hover:bg-emerald-700 disabled:bg-gray-300"
+        className="mt-3 rounded-lg bg-feira px-4 py-2 font-semibold text-white hover:bg-feira-dark disabled:bg-gray-300"
       >
         {pending ? 'Criando…' : 'Criar usuário'}
       </button>

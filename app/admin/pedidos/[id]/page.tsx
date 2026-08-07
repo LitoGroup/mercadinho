@@ -54,7 +54,7 @@ export default async function AdminOrderDetailPage({
         </ul>
         <div className="mt-2 flex justify-between border-t border-gray-100 pt-2 font-bold">
           <span>Total</span>
-          <span className="text-emerald-700">{formatCents(data.total_cents)}</span>
+          <span className="text-feira-dark">{formatCents(data.total_cents)}</span>
         </div>
       </div>
 

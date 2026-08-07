@@ -14,7 +14,7 @@ export default function CartPage() {
         <p className="mt-3 text-gray-500">Seu carrinho está vazio.</p>
         <Link
           href="/"
-          className="mt-4 inline-block rounded-lg bg-emerald-600 px-4 py-2 font-semibold text-white hover:bg-emerald-700"
+          className="mt-4 inline-block rounded-lg bg-feira px-4 py-2 font-semibold text-white hover:bg-feira-dark"
         >
           Ver produtos
         </Link>
@@ -41,7 +41,7 @@ export default function CartPage() {
             </div>
             <div className="min-w-0 flex-1">
               <p className="truncate font-medium text-gray-900">{item.name}</p>
-              <p className="text-sm text-emerald-700">{formatCents(item.priceCents)}</p>
+              <p className="text-sm text-feira-dark">{formatCents(item.priceCents)}</p>
             </div>
             <div className="flex items-center gap-1">
               <button
@@ -72,14 +72,14 @@ export default function CartPage() {
         ))}
       </ul>
 
-      <div className="mt-6 rounded-xl border border-emerald-100 bg-white p-4 shadow-sm">
+      <div className="mt-6 rounded-xl border border-cafe/10 bg-white p-4 shadow-sm">
         <div className="flex items-center justify-between text-lg">
           <span className="font-medium text-gray-700">Total</span>
-          <span className="font-bold text-emerald-700">{formatCents(totalCents)}</span>
+          <span className="font-bold text-feira-dark">{formatCents(totalCents)}</span>
         </div>
         <Link
           href="/checkout"
-          className="mt-4 block rounded-xl bg-emerald-600 py-3 text-center font-bold text-white hover:bg-emerald-700"
+          className="mt-4 block rounded-xl bg-feira py-3 text-center font-bold text-white hover:bg-feira-dark"
         >
           Finalizar compra
         </Link>

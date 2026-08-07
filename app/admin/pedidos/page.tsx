@@ -99,7 +99,7 @@ export default async function AdminOrdersPage({
         </div>
         <div className="rounded-xl border border-gray-100 bg-white p-3 shadow-sm">
           <p className="text-xs text-gray-500">Total do período</p>
-          <p className="text-lg font-bold text-emerald-700">{formatCents(total)}</p>
+          <p className="text-lg font-bold text-feira-dark">{formatCents(total)}</p>
         </div>
         <div className="rounded-xl border border-gray-100 bg-white p-3 shadow-sm">
           <p className="text-xs text-gray-500">Aguardando</p>
@@ -133,7 +133,7 @@ export default async function AdminOrdersPage({
                   <td className="p-3 text-right">
                     <Link
                       href={`/admin/pedidos/${o.id}`}
-                      className="font-medium text-emerald-700 hover:underline"
+                      className="font-medium text-feira-dark hover:underline"
                     >
                       Conferir
                     </Link>

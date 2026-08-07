@@ -1,21 +1,29 @@
 import type { Metadata } from 'next'
-import { Geist } from 'next/font/google'
+import { Alfa_Slab_One, Archivo } from 'next/font/google'
 import './globals.css'
 
-const geistSans = Geist({
-  variable: '--font-geist-sans',
+const display = Alfa_Slab_One({
+  weight: '400',
   subsets: ['latin'],
+  variable: '--font-display',
+})
+
+const body = Archivo({
+  subsets: ['latin'],
+  variable: '--font-body',
 })
 
 export const metadata: Metadata = {
-  title: 'Mercadinho',
-  description: 'Sistema interno de compras da empresa',
+  title: 'Mercadinho do Lito',
+  description: 'O mercadinho da firma — pegue, pague no PIX, pronto.',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="pt-BR">
-      <body className={`${geistSans.variable} font-sans antialiased`}>{children}</body>
+      <body className={`${display.variable} ${body.variable} font-sans antialiased`}>
+        {children}
+      </body>
     </html>
   )
 }

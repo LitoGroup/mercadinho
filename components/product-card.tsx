@@ -19,39 +19,42 @@ export function ProductCard({ product }: { product: CatalogProduct }) {
   const soldOut = inCart >= product.stock
 
   return (
-    <div className="flex flex-col overflow-hidden rounded-2xl border border-gray-100 bg-white shadow-sm">
-      <div className="flex h-36 items-center justify-center bg-gray-50">
+    <div className="flex flex-col overflow-hidden rounded-2xl border-2 border-cafe/10 bg-[#FFFDF8] transition hover:-translate-y-0.5 hover:shadow-md">
+      <div className="relative flex h-36 items-center justify-center bg-white">
         {product.imageUrl ? (
           // eslint-disable-next-line @next/next/no-img-element
           <img src={product.imageUrl} alt={product.name} className="h-full w-full object-cover" />
         ) : (
           <span className="text-4xl">🛍️</span>
         )}
+        {/* Etiqueta de preço */}
+        <span className="absolute -bottom-2 right-2 -rotate-3 rounded-md bg-banana px-2 py-0.5 font-slab text-sm text-cafe shadow-sm">
+          {formatCents(product.price_cents)}
+        </span>
       </div>
-      <div className="flex flex-1 flex-col gap-1 p-3">
-        <span className="text-xs uppercase tracking-wide text-emerald-600">{product.category}</span>
-        <h3 className="font-semibold leading-tight text-gray-900">{product.name}</h3>
+      <div className="flex flex-1 flex-col gap-1 p-3 pt-4">
+        <span className="text-[10px] font-bold uppercase tracking-[0.15em] text-tomate">
+          {product.category}
+        </span>
+        <h3 className="font-semibold leading-tight text-cafe">{product.name}</h3>
         {product.description && (
-          <p className="line-clamp-2 text-xs text-gray-500">{product.description}</p>
+          <p className="line-clamp-2 text-xs text-cafe/60">{product.description}</p>
         )}
-        <div className="mt-auto flex items-center justify-between pt-2">
-          <span className="font-bold text-emerald-700">{formatCents(product.price_cents)}</span>
-          <button
-            onClick={() =>
-              add({
-                productId: product.id,
-                name: product.name,
-                priceCents: product.price_cents,
-                maxStock: product.stock,
-                imageUrl: product.imageUrl,
-              })
-            }
-            disabled={soldOut}
-            className="rounded-lg bg-emerald-600 px-3 py-1.5 text-sm font-semibold text-white transition hover:bg-emerald-700 disabled:cursor-not-allowed disabled:bg-gray-300"
-          >
-            {soldOut ? 'Sem estoque' : inCart > 0 ? `Adicionar (${inCart})` : 'Adicionar'}
-          </button>
-        </div>
+        <button
+          onClick={() =>
+            add({
+              productId: product.id,
+              name: product.name,
+              priceCents: product.price_cents,
+              maxStock: product.stock,
+              imageUrl: product.imageUrl,
+            })
+          }
+          disabled={soldOut}
+          className="mt-auto w-full rounded-xl bg-feira py-2 text-sm font-bold text-white shadow-[0_3px_0_0] shadow-feira-dark transition hover:brightness-110 active:translate-y-0.5 active:shadow-none disabled:cursor-not-allowed disabled:bg-cafe/20 disabled:shadow-none"
+        >
+          {soldOut ? 'Sem estoque' : inCart > 0 ? `Na cesta (${inCart}) · pôr mais` : 'Pôr na cesta'}
+        </button>
       </div>
     </div>
   )

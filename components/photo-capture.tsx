@@ -51,7 +51,7 @@ export function PhotoCapture({
         type="button"
         onClick={() => inputRef.current?.click()}
         disabled={busy}
-        className="flex h-36 w-full items-center justify-center overflow-hidden rounded-xl border-2 border-dashed border-gray-300 bg-gray-50 text-sm text-gray-500 hover:border-emerald-400"
+        className="flex h-36 w-full items-center justify-center overflow-hidden rounded-xl border-2 border-dashed border-gray-300 bg-gray-50 text-sm text-gray-500 hover:border-feira"
       >
         {previewUrl ? (
           // eslint-disable-next-line @next/next/no-img-element

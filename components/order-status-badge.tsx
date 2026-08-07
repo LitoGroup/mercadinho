@@ -2,7 +2,7 @@ import type { OrderStatus } from '@/lib/types'
 
 const STYLES: Record<OrderStatus, { label: string; className: string }> = {
   pending: { label: 'Aguardando conferência', className: 'bg-amber-100 text-amber-800' },
-  approved: { label: 'Aprovado', className: 'bg-emerald-100 text-emerald-800' },
+  approved: { label: 'Aprovado', className: 'bg-feira/15 text-feira-dark' },
   rejected: { label: 'Rejeitado', className: 'bg-red-100 text-red-700' },
 }
 

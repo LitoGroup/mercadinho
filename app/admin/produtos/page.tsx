@@ -15,7 +15,7 @@ export default async function AdminProductsPage() {
         <h1 className="text-xl font-bold text-gray-900">Produtos</h1>
         <Link
           href="/admin/produtos/novo"
-          className="rounded-lg bg-emerald-600 px-4 py-2 font-semibold text-white hover:bg-emerald-700"
+          className="rounded-lg bg-feira px-4 py-2 font-semibold text-white hover:bg-feira-dark"
         >
           + Novo produto
         </Link>
@@ -67,7 +67,7 @@ export default async function AdminProductsPage() {
                     <td className="p-3">
                       <span
                         className={`rounded-full px-2 py-0.5 text-xs font-semibold ${
-                          p.active ? 'bg-emerald-100 text-emerald-800' : 'bg-gray-100 text-gray-500'
+                          p.active ? 'bg-feira/15 text-feira-dark' : 'bg-gray-100 text-gray-500'
                         }`}
                       >
                         {p.active ? 'Ativo' : 'Inativo'}
@@ -76,7 +76,7 @@ export default async function AdminProductsPage() {
                     <td className="p-3 text-right">
                       <Link
                         href={`/admin/produtos/${p.id}`}
-                        className="font-medium text-emerald-700 hover:underline"
+                        className="font-medium text-feira-dark hover:underline"
                       >
                         Editar
                       </Link>

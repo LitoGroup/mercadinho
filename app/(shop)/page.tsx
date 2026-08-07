@@ -41,7 +41,7 @@ export default async function CatalogPage({
           name="q"
           defaultValue={q ?? ''}
           placeholder="Buscar produto ou categoria…"
-          className="w-full rounded-xl border border-gray-200 bg-white px-4 py-2.5 shadow-sm focus:border-emerald-500 focus:outline-none"
+          className="w-full rounded-xl border border-gray-200 bg-white px-4 py-2.5 shadow-sm focus:border-feira focus:outline-none"
         />
       </form>
 

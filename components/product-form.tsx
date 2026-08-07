@@ -67,7 +67,7 @@ export function ProductForm({
   }
 
   const inputCls =
-    'w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-emerald-500 focus:outline-none'
+    'w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-feira focus:outline-none'
 
   return (
     <form action={handleSubmit} className="mx-auto max-w-lg space-y-4">
@@ -108,7 +108,7 @@ export function ProductForm({
         <button
           type="button"
           onClick={() => setScanning(true)}
-          className="self-end rounded-lg border border-emerald-300 px-3 py-2 text-emerald-700 hover:bg-emerald-50"
+          className="self-end rounded-lg border border-feira/40 px-3 py-2 text-feira-dark hover:bg-feira/10"
         >
           📷 Escanear
         </button>
@@ -206,7 +206,7 @@ export function ProductForm({
       <button
         type="submit"
         disabled={pending}
-        className="w-full rounded-xl bg-emerald-600 py-3 font-bold text-white hover:bg-emerald-700 disabled:bg-gray-300"
+        className="w-full rounded-xl bg-feira py-3 font-bold text-white hover:bg-feira-dark disabled:bg-gray-300"
       >
         {pending ? 'Salvando…' : product ? 'Salvar alterações' : 'Cadastrar produto'}
       </button>

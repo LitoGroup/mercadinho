@@ -23,7 +23,7 @@ export function UserActiveToggle({ userId, active }: { userId: string; active: b
         className={`rounded-lg px-3 py-1.5 text-xs font-semibold ${
           active
             ? 'border border-red-200 text-red-600 hover:bg-red-50'
-            : 'bg-emerald-600 text-white hover:bg-emerald-700'
+            : 'bg-feira text-white hover:bg-feira-dark'
         } disabled:opacity-50`}
       >
         {pending ? '…' : active ? 'Desativar' : 'Reativar'}

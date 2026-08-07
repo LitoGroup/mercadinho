@@ -60,7 +60,7 @@ export function ReviewButtons({ orderId }: { orderId: string }) {
           <button
             onClick={() => submit(true)}
             disabled={pending}
-            className="flex-1 rounded-lg bg-emerald-600 py-2.5 font-semibold text-white hover:bg-emerald-700 disabled:bg-gray-300"
+            className="flex-1 rounded-lg bg-feira py-2.5 font-semibold text-white hover:bg-feira-dark disabled:bg-gray-300"
           >
             {pending ? 'Salvando…' : '✓ Aprovar pedido'}
           </button>
