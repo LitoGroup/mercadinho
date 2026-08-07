@@ -34,6 +34,12 @@ export function ShopHeader({
           >
             Meus pedidos
           </Link>
+          <Link
+            href="/senha"
+            className="hidden rounded-lg px-2.5 py-1.5 font-medium text-cafe/70 transition hover:bg-creme sm:block"
+          >
+            Trocar senha
+          </Link>
           {isAdmin && (
             <Link
               href="/admin/pedidos"

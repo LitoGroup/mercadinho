@@ -30,6 +30,41 @@ export async function signIn(formData: FormData) {
   redirect(profile.role === 'admin' ? '/admin/pedidos' : '/')
 }
 
+export interface ChangePasswordState {
+  error?: string
+  ok?: boolean
+}
+
+export async function changePassword(
+  _prev: ChangePasswordState,
+  formData: FormData
+): Promise<ChangePasswordState> {
+  const password = String(formData.get('password') ?? '')
+  const confirm = String(formData.get('confirm') ?? '')
+
+  if (password.length < 6) {
+    return { error: 'A nova senha precisa de pelo menos 6 caracteres.' }
+  }
+  if (password !== confirm) {
+    return { error: 'As senhas não conferem. Digite a mesma senha nos dois campos.' }
+  }
+
+  const supabase = await createServerSupabase()
+  const {
+    data: { user },
+  } = await supabase.auth.getUser()
+  if (!user) return { error: 'Sessão expirada. Entre novamente.' }
+
+  const { error } = await supabase.auth.updateUser({ password })
+  if (error) {
+    if (error.message.includes('different from the old')) {
+      return { error: 'A nova senha precisa ser diferente da atual.' }
+    }
+    return { error: 'Não foi possível trocar a senha. Tente novamente.' }
+  }
+  return { ok: true }
+}
+
 export async function signOut() {
   const supabase = await createServerSupabase()
   await supabase.auth.signOut()

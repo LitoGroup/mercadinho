@@ -1,3 +1,5 @@
+import { KeyRound } from 'lucide-react'
+import Link from 'next/link'
 import { OrderStatusBadge } from '@/components/order-status-badge'
 import { formatCents, formatDate } from '@/lib/format'
 import { getReceiptUrl } from '@/lib/orders'
@@ -20,7 +22,16 @@ export default async function MyOrdersPage({
 
   return (
     <div className="mx-auto max-w-2xl">
-      <h1 className="mb-4 text-xl font-bold text-gray-900">Meus pedidos</h1>
+      <div className="mb-4 flex items-center justify-between gap-2">
+        <h1 className="text-xl font-bold text-gray-900">Meus pedidos</h1>
+        <Link
+          href="/senha"
+          className="flex items-center gap-1.5 rounded-lg border border-cafe/15 px-3 py-1.5 text-sm font-medium text-cafe/70 transition hover:bg-white sm:hidden"
+        >
+          <KeyRound className="h-4 w-4" />
+          Trocar senha
+        </Link>
+      </div>
 
       {sucesso && (
         <p className="mb-4 rounded-xl bg-feira/15 p-4 text-sm font-medium text-feira-dark">
