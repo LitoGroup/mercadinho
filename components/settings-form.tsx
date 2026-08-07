@@ -8,12 +8,12 @@ export function SettingsForm({ settings }: { settings: Settings }) {
   const [state, formAction, pending] = useActionState<SaveSettingsState, FormData>(saveSettings, {})
 
   const inputCls =
-    'w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-feira focus:outline-none'
+    'w-full rounded-lg border border-texto/15 px-3 py-2 text-sm focus:border-azul focus:outline-none'
 
   return (
-    <form action={formAction} className="space-y-3 rounded-xl border border-gray-100 bg-white p-4 shadow-sm">
+    <form action={formAction} className="space-y-3 rounded-xl border border-texto/8 bg-white p-4 shadow-sm">
       <div>
-        <label htmlFor="pix_key" className="mb-1 block text-sm font-medium text-gray-700">
+        <label htmlFor="pix_key" className="mb-1 block text-sm font-medium text-texto/80">
           Chave PIX da empresa *
         </label>
         <input
@@ -27,7 +27,7 @@ export function SettingsForm({ settings }: { settings: Settings }) {
       </div>
       <div className="grid gap-3 sm:grid-cols-3">
         <div>
-          <label htmlFor="pix_key_type" className="mb-1 block text-sm font-medium text-gray-700">
+          <label htmlFor="pix_key_type" className="mb-1 block text-sm font-medium text-texto/80">
             Tipo da chave
           </label>
           <select
@@ -44,7 +44,7 @@ export function SettingsForm({ settings }: { settings: Settings }) {
           </select>
         </div>
         <div>
-          <label htmlFor="merchant_name" className="mb-1 block text-sm font-medium text-gray-700">
+          <label htmlFor="merchant_name" className="mb-1 block text-sm font-medium text-texto/80">
             Nome da empresa *
           </label>
           <input
@@ -57,7 +57,7 @@ export function SettingsForm({ settings }: { settings: Settings }) {
           />
         </div>
         <div>
-          <label htmlFor="merchant_city" className="mb-1 block text-sm font-medium text-gray-700">
+          <label htmlFor="merchant_city" className="mb-1 block text-sm font-medium text-texto/80">
             Cidade *
           </label>
           <input
@@ -71,9 +71,9 @@ export function SettingsForm({ settings }: { settings: Settings }) {
         </div>
       </div>
 
-      {state.error && <p className="rounded-lg bg-red-50 p-3 text-sm text-red-700">{state.error}</p>}
+      {state.error && <p className="rounded-lg bg-erro/8 p-3 text-sm text-erro-escuro">{state.error}</p>}
       {state.ok && (
-        <p className="rounded-lg bg-feira/10 p-3 text-sm text-feira-dark">
+        <p className="rounded-lg bg-verde/10 p-3 text-sm text-azul">
           Configurações salvas!
         </p>
       )}
@@ -81,7 +81,7 @@ export function SettingsForm({ settings }: { settings: Settings }) {
       <button
         type="submit"
         disabled={pending}
-        className="rounded-lg bg-feira px-4 py-2 font-semibold text-white hover:bg-feira-dark disabled:bg-gray-300"
+        className="rounded-lg bg-azul px-4 py-2 font-semibold text-white hover:bg-azul-claro disabled:bg-texto/15"
       >
         {pending ? 'Salvando…' : 'Salvar configurações'}
       </button>

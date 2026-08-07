@@ -54,8 +54,8 @@ export function CheckoutForm({
   if (items.length === 0 && !state.ok) {
     return (
       <div className="py-16 text-center">
-        <p className="text-gray-500">Seu carrinho está vazio.</p>
-        <Link href="/" className="mt-3 inline-block font-semibold text-feira-dark underline">
+        <p className="text-texto/50">Seu carrinho está vazio.</p>
+        <Link href="/" className="mt-3 inline-block font-semibold text-azul underline">
           Voltar ao catálogo
         </Link>
       </div>
@@ -123,40 +123,40 @@ export function CheckoutForm({
 
   return (
     <div className="mx-auto max-w-lg space-y-5">
-      <h1 className="text-xl font-bold text-gray-900">Finalizar compra</h1>
+      <h1 className="text-xl font-bold text-texto">Finalizar compra</h1>
 
       {/* Resumo */}
-      <section className="rounded-xl border border-gray-100 bg-white p-4 shadow-sm">
-        <h2 className="mb-2 font-semibold text-gray-700">Resumo do pedido</h2>
-        <ul className="divide-y divide-gray-50 text-sm">
+      <section className="rounded-xl border border-texto/8 bg-white p-4 shadow-sm">
+        <h2 className="mb-2 font-semibold text-texto/80">Resumo do pedido</h2>
+        <ul className="divide-y divide-texto/5 text-sm">
           {items.map((i) => (
             <li key={i.productId} className="flex justify-between py-1.5">
-              <span className="text-gray-600">
+              <span className="text-texto/70">
                 {i.qty}× {i.name}
               </span>
               <span className="font-medium">{formatCents(i.priceCents * i.qty)}</span>
             </li>
           ))}
         </ul>
-        <div className="mt-2 flex justify-between border-t border-gray-100 pt-2 font-bold">
+        <div className="mt-2 flex justify-between border-t border-texto/8 pt-2 font-bold">
           <span>Total a pagar</span>
-          <span className="text-feira-dark">{formatCents(totalCents)}</span>
+          <span className="text-azul">{formatCents(totalCents)}</span>
         </div>
       </section>
 
       {/* Pagamento */}
-      <section className="rounded-xl border border-gray-100 bg-white p-4 shadow-sm">
-        <h2 className="mb-1 font-semibold text-gray-700">1. Pague com PIX</h2>
+      <section className="rounded-xl border border-texto/8 bg-white p-4 shadow-sm">
+        <h2 className="mb-1 font-semibold text-texto/80">1. Pague com PIX</h2>
         {!pixConfigured ? (
-          <p className="rounded-lg bg-amber-50 p-3 text-sm text-amber-800">
+          <p className="rounded-lg bg-alerta/10 p-3 text-sm text-alerta">
             O PIX ainda não foi configurado pelo administrador. Fale com ele antes de finalizar.
           </p>
         ) : (
           <div className="flex flex-col items-center gap-3">
-            <p className="text-center text-sm text-gray-500">
+            <p className="text-center text-sm text-texto/50">
               Escaneie o QR code abaixo no app do seu banco e transfira{' '}
-              <strong className="text-gray-800">{formatCents(totalCents)}</strong> para{' '}
-              <strong className="text-gray-800">{merchantName}</strong>.
+              <strong className="text-texto">{formatCents(totalCents)}</strong> para{' '}
+              <strong className="text-texto">{merchantName}</strong>.
             </p>
             {qrDataUrl && (
               // eslint-disable-next-line @next/next/no-img-element
@@ -166,7 +166,7 @@ export function CheckoutForm({
               <button
                 type="button"
                 onClick={() => copy(pixKey, 'chave')}
-                className="flex-1 rounded-lg border border-feira/40 px-3 py-2 text-sm font-medium text-feira-dark hover:bg-feira/10"
+                className="flex-1 rounded-lg border border-azul/30 px-3 py-2 text-sm font-medium text-azul hover:bg-verde/10"
               >
                 {copied === 'chave' ? 'Chave copiada ✓' : 'Copiar chave PIX'}
               </button>
@@ -174,7 +174,7 @@ export function CheckoutForm({
                 <button
                   type="button"
                   onClick={() => copy(pixPayload, 'codigo')}
-                  className="flex-1 rounded-lg border border-feira/40 px-3 py-2 text-sm font-medium text-feira-dark hover:bg-feira/10"
+                  className="flex-1 rounded-lg border border-azul/30 px-3 py-2 text-sm font-medium text-azul hover:bg-verde/10"
                 >
                   {copied === 'codigo' ? 'Código copiado ✓' : 'PIX copia e cola'}
                 </button>
@@ -185,9 +185,9 @@ export function CheckoutForm({
       </section>
 
       {/* Comprovante */}
-      <form onSubmit={handleSubmit} className="rounded-xl border border-gray-100 bg-white p-4 shadow-sm">
-        <h2 className="mb-1 font-semibold text-gray-700">2. Envie o comprovante</h2>
-        <p className="mb-3 text-sm text-gray-500">
+      <form onSubmit={handleSubmit} className="rounded-xl border border-texto/8 bg-white p-4 shadow-sm">
+        <h2 className="mb-1 font-semibold text-texto/80">2. Envie o comprovante</h2>
+        <p className="mb-3 text-sm text-texto/50">
           Anexe o comprovante do PIX (PDF ou foto) para concluir o pedido.
         </p>
         <input
@@ -196,15 +196,15 @@ export function CheckoutForm({
           name="receipt"
           required
           accept="application/pdf,image/jpeg,image/png,image/webp"
-          className="w-full rounded-lg border border-dashed border-gray-300 p-3 text-sm file:mr-3 file:rounded-lg file:border-0 file:bg-feira file:px-3 file:py-1.5 file:font-semibold file:text-white"
+          className="w-full rounded-lg border border-dashed border-texto/15 p-3 text-sm file:mr-3 file:rounded-lg file:border-0 file:bg-azul file:px-3 file:py-1.5 file:font-semibold file:text-white"
         />
 
-        {error && <p className="mt-3 rounded-lg bg-red-50 p-3 text-sm text-red-700">{error}</p>}
+        {error && <p className="mt-3 rounded-lg bg-erro/8 p-3 text-sm text-erro-escuro">{error}</p>}
 
         <button
           type="submit"
           disabled={pending || !pixConfigured}
-          className="mt-4 w-full rounded-xl bg-menta py-3 font-bold uppercase tracking-wide text-feira-dark transition hover:brightness-95 disabled:cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-500"
+          className="mt-4 w-full rounded-xl bg-verde py-3 font-bold uppercase tracking-wide text-azul transition hover:brightness-95 disabled:cursor-not-allowed disabled:bg-texto/15 disabled:text-texto/50"
         >
           {uploading ? 'Enviando comprovante…' : actionPending ? 'Registrando pedido…' : 'Concluir pedido'}
         </button>

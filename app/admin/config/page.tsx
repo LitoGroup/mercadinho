@@ -21,21 +21,21 @@ export default async function AdminConfigPage() {
 
   return (
     <div className="mx-auto max-w-lg space-y-5">
-      <h1 className="text-xl font-bold text-gray-900">Configurações</h1>
+      <h1 className="text-xl font-bold text-texto">Configurações</h1>
       <SettingsForm settings={settings} />
 
-      <div className="rounded-xl border border-gray-100 bg-white p-4 text-center shadow-sm">
-        <h2 className="mb-2 font-semibold text-gray-700">Pré-visualização do QR PIX</h2>
+      <div className="rounded-xl border border-texto/8 bg-white p-4 text-center shadow-sm">
+        <h2 className="mb-2 font-semibold text-texto/80">Pré-visualização do QR PIX</h2>
         {qrDataUrl ? (
           <>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={qrDataUrl} alt="QR code PIX" className="mx-auto rounded-lg border" />
-            <p className="mt-2 text-xs text-gray-400">
+            <p className="mt-2 text-xs text-texto/40">
               Este é o QR que os clientes verão no checkout. Teste com o app do seu banco!
             </p>
           </>
         ) : (
-          <p className="text-sm text-gray-500">Preencha a chave PIX para gerar o QR code.</p>
+          <p className="text-sm text-texto/50">Preencha a chave PIX para gerar o QR code.</p>
         )}
       </div>
     </div>

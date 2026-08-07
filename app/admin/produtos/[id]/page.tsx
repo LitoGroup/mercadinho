@@ -21,7 +21,7 @@ export default async function EditProductPage({
 
   return (
     <div>
-      <h1 className="mb-4 text-xl font-bold text-gray-900">Editar produto</h1>
+      <h1 className="mb-4 text-xl font-bold text-texto">Editar produto</h1>
       <ProductForm product={product} existingImageUrl={productImageUrl(product.image_path)} />
     </div>
   )

@@ -23,10 +23,10 @@ export default async function MyOrdersPage({
   return (
     <div className="mx-auto max-w-2xl">
       <div className="mb-4 flex items-center justify-between gap-2">
-        <h1 className="text-xl font-bold text-gray-900">Meus pedidos</h1>
+        <h1 className="text-xl font-bold text-texto">Meus pedidos</h1>
         <Link
           href="/senha"
-          className="flex items-center gap-1.5 rounded-lg border border-cafe/15 px-3 py-1.5 text-sm font-medium text-cafe/70 transition hover:bg-white sm:hidden"
+          className="flex items-center gap-1.5 rounded-lg border border-texto/15 px-3 py-1.5 text-sm font-medium text-texto/70 transition hover:bg-white sm:hidden"
         >
           <KeyRound className="h-4 w-4" />
           Trocar senha
@@ -34,28 +34,28 @@ export default async function MyOrdersPage({
       </div>
 
       {sucesso && (
-        <p className="mb-4 rounded-xl bg-feira/15 p-4 text-sm font-medium text-feira-dark">
+        <p className="mb-4 rounded-xl bg-verde/15 p-4 text-sm font-medium text-azul">
           Pedido enviado! Ele será conferido pelo administrador.
         </p>
       )}
 
       {orders.length === 0 ? (
-        <p className="py-16 text-center text-gray-500">Você ainda não fez nenhum pedido.</p>
+        <p className="py-16 text-center text-texto/50">Você ainda não fez nenhum pedido.</p>
       ) : (
         <ul className="space-y-4">
           {orders.map(async (order) => {
             const receiptUrl = await getReceiptUrl(order.receipt_path)
             return (
-              <li key={order.id} className="rounded-xl border border-gray-100 bg-white p-4 shadow-sm">
+              <li key={order.id} className="rounded-xl border border-texto/8 bg-white p-4 shadow-sm">
                 <div className="flex flex-wrap items-center justify-between gap-2">
                   <div>
-                    <p className="text-sm text-gray-500">{formatDate(order.created_at)}</p>
-                    <p className="font-bold text-feira-dark">{formatCents(order.total_cents)}</p>
+                    <p className="text-sm text-texto/50">{formatDate(order.created_at)}</p>
+                    <p className="font-bold text-azul">{formatCents(order.total_cents)}</p>
                   </div>
                   <OrderStatusBadge status={order.status} />
                 </div>
 
-                <ul className="mt-3 space-y-1 border-t border-gray-50 pt-2 text-sm text-gray-600">
+                <ul className="mt-3 space-y-1 border-t border-texto/6 pt-2 text-sm text-texto/70">
                   {order.order_items?.map((item) => (
                     <li key={item.id} className="flex justify-between">
                       <span>
@@ -67,7 +67,7 @@ export default async function MyOrdersPage({
                 </ul>
 
                 {order.status === 'rejected' && order.review_note && (
-                  <p className="mt-3 rounded-lg bg-red-50 p-3 text-sm text-red-700">
+                  <p className="mt-3 rounded-lg bg-erro/8 p-3 text-sm text-erro-escuro">
                     <strong>Motivo:</strong> {order.review_note}
                   </p>
                 )}
@@ -77,7 +77,7 @@ export default async function MyOrdersPage({
                     href={receiptUrl}
                     target="_blank"
                     rel="noreferrer"
-                    className="mt-3 inline-block text-sm font-medium text-feira-dark underline"
+                    className="mt-3 inline-block text-sm font-medium text-azul underline"
                   >
                     Ver comprovante enviado
                   </a>

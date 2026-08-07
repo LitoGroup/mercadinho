@@ -43,7 +43,7 @@ export function BarcodeScanner({
     <div className="fixed inset-0 z-50 flex flex-col items-center justify-center bg-black/90 p-4">
       <p className="mb-3 font-medium text-white">Aponte para o código de barras</p>
       {error ? (
-        <p className="rounded-lg bg-red-50 p-4 text-sm text-red-700">{error}</p>
+        <p className="rounded-lg bg-erro/8 p-4 text-sm text-erro-escuro">{error}</p>
       ) : (
         <video ref={videoRef} className="w-full max-w-md rounded-xl" muted playsInline />
       )}

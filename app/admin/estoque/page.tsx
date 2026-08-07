@@ -40,24 +40,24 @@ export default async function AdminStockPage({
 
   return (
     <div>
-      <h1 className="mb-4 text-xl font-bold text-gray-900">Controle de estoque</h1>
+      <h1 className="mb-4 text-xl font-bold text-texto">Controle de estoque</h1>
 
       <div className="mb-4 grid grid-cols-2 gap-3 text-center sm:grid-cols-4">
-        <div className="rounded-xl border border-gray-100 bg-white p-3 shadow-sm">
-          <p className="text-xs text-gray-500">Itens em estoque</p>
-          <p className="text-lg font-bold text-gray-900">{totalItens}</p>
+        <div className="rounded-xl border border-texto/8 bg-white p-3 shadow-sm">
+          <p className="text-xs text-texto/50">Itens em estoque</p>
+          <p className="text-lg font-bold text-texto">{totalItens}</p>
         </div>
-        <div className="rounded-xl border border-gray-100 bg-white p-3 shadow-sm">
-          <p className="text-xs text-gray-500">Valor em estoque</p>
-          <p className="text-lg font-bold text-feira-dark">{formatCents(valorEstoque)}</p>
+        <div className="rounded-xl border border-texto/8 bg-white p-3 shadow-sm">
+          <p className="text-xs text-texto/50">Valor em estoque</p>
+          <p className="text-lg font-bold text-azul">{formatCents(valorEstoque)}</p>
         </div>
-        <div className="rounded-xl border border-gray-100 bg-white p-3 shadow-sm">
-          <p className="text-xs text-gray-500">Acabando (≤5)</p>
-          <p className="text-lg font-bold text-amber-600">{acabando}</p>
+        <div className="rounded-xl border border-texto/8 bg-white p-3 shadow-sm">
+          <p className="text-xs text-texto/50">Acabando (≤5)</p>
+          <p className="text-lg font-bold text-alerta">{acabando}</p>
         </div>
-        <div className="rounded-xl border border-gray-100 bg-white p-3 shadow-sm">
-          <p className="text-xs text-gray-500">Zerados</p>
-          <p className="text-lg font-bold text-tomate-dark">{zerados}</p>
+        <div className="rounded-xl border border-texto/8 bg-white p-3 shadow-sm">
+          <p className="text-xs text-texto/50">Zerados</p>
+          <p className="text-lg font-bold text-erro-escuro">{zerados}</p>
         </div>
       </div>
 
@@ -67,12 +67,12 @@ export default async function AdminStockPage({
           name="q"
           defaultValue={q ?? ''}
           placeholder="Buscar produto…"
-          className="w-full rounded-xl border border-gray-200 bg-white px-4 py-2.5 shadow-sm focus:border-feira focus:outline-none sm:max-w-xs"
+          className="w-full rounded-xl border border-texto/10 bg-white px-4 py-2.5 shadow-sm focus:border-azul focus:outline-none sm:max-w-xs"
         />
       </form>
 
       {products.length === 0 ? (
-        <p className="py-16 text-center text-gray-500">
+        <p className="py-16 text-center text-texto/50">
           {q ? 'Nenhum produto encontrado.' : 'Nenhum produto cadastrado ainda.'}
         </p>
       ) : (
@@ -82,7 +82,7 @@ export default async function AdminStockPage({
             {products.map((p) => (
               <li
                 key={p.id}
-                className={`rounded-xl border border-gray-100 bg-white p-3 shadow-sm ${
+                className={`rounded-xl border border-texto/8 bg-white p-3 shadow-sm ${
                   p.active ? '' : 'opacity-60'
                 }`}
               >
@@ -90,23 +90,23 @@ export default async function AdminStockPage({
                   <div className="min-w-0">
                     <Link
                       href={`/admin/produtos/${p.id}`}
-                      className="block truncate font-medium text-gray-900"
+                      className="block truncate font-medium text-texto"
                     >
                       {p.name}
                     </Link>
-                    <p className="text-xs text-gray-400">
+                    <p className="text-xs text-texto/40">
                       {formatCents(p.price_cents)}
                       {!p.active && ' · inativo'}
                       {p.active && p.stock === 0 && (
-                        <span className="ml-1 font-semibold text-tomate-dark">· esgotado</span>
+                        <span className="ml-1 font-semibold text-erro-escuro">· esgotado</span>
                       )}
                       {p.active && p.stock > 0 && p.stock <= 5 && (
-                        <span className="ml-1 font-semibold text-amber-600">· acabando</span>
+                        <span className="ml-1 font-semibold text-alerta">· acabando</span>
                       )}
                     </p>
                   </div>
                 </div>
-                <div className="mt-3 border-t border-gray-50 pt-3">
+                <div className="mt-3 border-t border-texto/6 pt-3">
                   <StockControls productId={p.id} stock={p.stock} />
                 </div>
               </li>
@@ -114,33 +114,33 @@ export default async function AdminStockPage({
           </ul>
 
           {/* Desktop: tabela */}
-          <div className="hidden rounded-xl border border-gray-100 bg-white shadow-sm sm:block">
+          <div className="hidden rounded-xl border border-texto/8 bg-white shadow-sm sm:block">
             <table className="w-full text-sm">
-            <thead className="bg-gray-50 text-left text-gray-500">
+            <thead className="bg-cinza-claro text-left text-texto/50">
               <tr>
                 <th className="p-3">Produto</th>
                 <th className="p-3">Preço</th>
                 <th className="p-3 text-right">Estoque</th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-50">
+            <tbody className="divide-y divide-texto/5">
               {products.map((p) => (
                 <tr key={p.id} className={p.active ? '' : 'opacity-50'}>
                   <td className="p-3">
                     <Link
                       href={`/admin/produtos/${p.id}`}
-                      className="font-medium text-gray-900 hover:underline"
+                      className="font-medium text-texto hover:underline"
                     >
                       {p.name}
                     </Link>
-                    <p className="text-xs text-gray-400">
+                    <p className="text-xs text-texto/40">
                       {p.category}
                       {!p.active && ' · inativo'}
                       {p.active && p.stock === 0 && (
-                        <span className="ml-1 font-semibold text-tomate-dark">· esgotado</span>
+                        <span className="ml-1 font-semibold text-erro-escuro">· esgotado</span>
                       )}
                       {p.active && p.stock > 0 && p.stock <= 5 && (
-                        <span className="ml-1 font-semibold text-amber-600">· acabando</span>
+                        <span className="ml-1 font-semibold text-alerta">· acabando</span>
                       )}
                     </p>
                   </td>
@@ -156,35 +156,35 @@ export default async function AdminStockPage({
         </>
       )}
 
-      <h2 className="mb-2 mt-6 font-semibold text-gray-700">Últimas movimentações</h2>
+      <h2 className="mb-2 mt-6 font-semibold text-texto/80">Últimas movimentações</h2>
       {movementsError ? (
-        <p className="rounded-xl bg-amber-50 p-4 text-sm text-amber-800">
+        <p className="rounded-xl bg-alerta/10 p-4 text-sm text-alerta">
           O histórico de movimentações precisa da migração{' '}
           <code className="font-mono">0002_estoque.sql</code> — rode o arquivo no SQL Editor do
           Supabase para ativá-lo.
         </p>
       ) : movements.length === 0 ? (
-        <p className="rounded-xl border border-gray-100 bg-white p-4 text-sm text-gray-500 shadow-sm">
+        <p className="rounded-xl border border-texto/8 bg-white p-4 text-sm text-texto/50 shadow-sm">
           Nenhuma movimentação registrada ainda.
         </p>
       ) : (
-        <ul className="divide-y divide-gray-50 overflow-hidden rounded-xl border border-gray-100 bg-white shadow-sm">
+        <ul className="divide-y divide-texto/5 overflow-hidden rounded-xl border border-texto/8 bg-white shadow-sm">
           {movements.map((m) => (
             <li key={m.id} className="flex items-center justify-between gap-2 p-3 text-sm">
               <div>
-                <span className="font-medium text-gray-900">{m.products?.name ?? 'Produto'}</span>
-                <p className="text-xs text-gray-400">
+                <span className="font-medium text-texto">{m.products?.name ?? 'Produto'}</span>
+                <p className="text-xs text-texto/40">
                   {formatDate(m.created_at)}
                   {m.profiles?.name ? ` · ${m.profiles.name}` : ''}
                 </p>
               </div>
               <div className="text-right">
                 <span
-                  className={`font-bold ${m.delta > 0 ? 'text-feira-dark' : 'text-tomate-dark'}`}
+                  className={`font-bold ${m.delta > 0 ? 'text-azul' : 'text-erro-escuro'}`}
                 >
                   {m.delta > 0 ? `+${m.delta}` : m.delta}
                 </span>
-                <p className="text-xs text-gray-400">saldo {m.stock_after}</p>
+                <p className="text-xs text-texto/40">saldo {m.stock_after}</p>
               </div>
             </li>
           ))}

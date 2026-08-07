@@ -18,7 +18,7 @@ export default async function AdminUsersPage() {
 
   return (
     <div className="space-y-5">
-      <h1 className="text-xl font-bold text-gray-900">Usuários</h1>
+      <h1 className="text-xl font-bold text-texto">Usuários</h1>
 
       <UserForm />
 
@@ -27,28 +27,28 @@ export default async function AdminUsersPage() {
         {users.map((u) => (
           <li
             key={u.id}
-            className={`rounded-xl border border-gray-100 bg-white p-3 shadow-sm ${
+            className={`rounded-xl border border-texto/8 bg-white p-3 shadow-sm ${
               u.active ? '' : 'opacity-60'
             }`}
           >
             <div className="flex items-start justify-between gap-3">
               <div className="min-w-0">
-                <p className="truncate font-medium text-gray-900">
+                <p className="truncate font-medium text-texto">
                   {u.name}
-                  {u.id === me.id && <span className="ml-1 text-xs text-gray-400">(você)</span>}
+                  {u.id === me.id && <span className="ml-1 text-xs text-texto/40">(você)</span>}
                 </p>
-                <p className="truncate text-xs text-gray-500">{emailById.get(u.id) ?? '—'}</p>
+                <p className="truncate text-xs text-texto/50">{emailById.get(u.id) ?? '—'}</p>
               </div>
               <span
                 className={`shrink-0 rounded-full px-2 py-0.5 text-xs font-semibold ${
-                  u.role === 'admin' ? 'bg-violet-100 text-violet-700' : 'bg-gray-100 text-gray-600'
+                  u.role === 'admin' ? 'bg-azul/10 text-azul' : 'bg-cinza-claro text-texto/70'
                 }`}
               >
                 {u.role === 'admin' ? 'Admin' : 'Cliente'}
               </span>
             </div>
             {u.id !== me.id && (
-              <div className="mt-3 border-t border-gray-50 pt-3">
+              <div className="mt-3 border-t border-texto/6 pt-3">
                 <UserActiveToggle userId={u.id} active={u.active} />
               </div>
             )}
@@ -57,9 +57,9 @@ export default async function AdminUsersPage() {
       </ul>
 
       {/* Desktop: tabela */}
-      <div className="hidden rounded-xl border border-gray-100 bg-white shadow-sm sm:block">
+      <div className="hidden rounded-xl border border-texto/8 bg-white shadow-sm sm:block">
         <table className="w-full text-sm">
-          <thead className="bg-gray-50 text-left text-gray-500">
+          <thead className="bg-cinza-claro text-left text-texto/50">
             <tr>
               <th className="p-3">Nome</th>
               <th className="p-3">Email</th>
@@ -68,26 +68,26 @@ export default async function AdminUsersPage() {
               <th className="p-3"></th>
             </tr>
           </thead>
-          <tbody className="divide-y divide-gray-50">
+          <tbody className="divide-y divide-texto/5">
             {users.map((u) => (
               <tr key={u.id} className={u.active ? '' : 'opacity-50'}>
-                <td className="p-3 font-medium text-gray-900">
+                <td className="p-3 font-medium text-texto">
                   {u.name}
-                  {u.id === me.id && <span className="ml-1 text-xs text-gray-400">(você)</span>}
+                  {u.id === me.id && <span className="ml-1 text-xs text-texto/40">(você)</span>}
                 </td>
-                <td className="p-3 text-gray-600">{emailById.get(u.id) ?? '—'}</td>
+                <td className="p-3 text-texto/70">{emailById.get(u.id) ?? '—'}</td>
                 <td className="p-3">
                   <span
                     className={`rounded-full px-2 py-0.5 text-xs font-semibold ${
                       u.role === 'admin'
-                        ? 'bg-violet-100 text-violet-700'
-                        : 'bg-gray-100 text-gray-600'
+                        ? 'bg-azul/10 text-azul'
+                        : 'bg-cinza-claro text-texto/70'
                     }`}
                   >
                     {u.role === 'admin' ? 'Admin' : 'Cliente'}
                   </span>
                 </td>
-                <td className="p-3 text-gray-500">{formatDate(u.created_at)}</td>
+                <td className="p-3 text-texto/50">{formatDate(u.created_at)}</td>
                 <td className="p-3">
                   {u.id !== me.id && <UserActiveToggle userId={u.id} active={u.active} />}
                 </td>

@@ -20,7 +20,7 @@ export function ProductCard({ product }: { product: CatalogProduct }) {
   const soldOut = inCart >= product.stock
 
   return (
-    <div className="group flex flex-col overflow-hidden rounded-xl border border-cafe/8 bg-white transition hover:border-cafe/15 hover:shadow-md">
+    <div className="group flex flex-col overflow-hidden rounded-xl border border-texto/8 bg-white transition hover:border-texto/15 hover:shadow-md">
       <div className="relative aspect-square overflow-hidden bg-white">
         {product.imageUrl ? (
           // eslint-disable-next-line @next/next/no-img-element
@@ -30,32 +30,32 @@ export function ProductCard({ product }: { product: CatalogProduct }) {
             className="h-full w-full object-cover transition duration-300 group-hover:scale-[1.03]"
           />
         ) : (
-          <div className="flex h-full items-center justify-center bg-creme text-cafe/20">
+          <div className="flex h-full items-center justify-center bg-cinza-claro text-texto/20">
             <ShoppingBagIcon />
           </div>
         )}
         {inCart > 0 && (
-          <span className="absolute left-2 top-2 rounded-md bg-feira px-2 py-0.5 text-xs font-semibold text-white">
+          <span className="absolute left-2 top-2 rounded-md bg-azul px-2 py-0.5 text-xs font-semibold text-white">
             {inCart} no carrinho
           </span>
         )}
       </div>
 
-      <div className="flex flex-1 flex-col border-t border-cafe/5 p-3">
-        <span className="text-[11px] font-medium uppercase tracking-wide text-cafe/40">
+      <div className="flex flex-1 flex-col border-t border-texto/5 p-3">
+        <span className="text-[11px] font-medium uppercase tracking-wide text-texto/40">
           {product.category}
         </span>
-        <h3 className="mt-0.5 line-clamp-2 text-sm font-semibold leading-snug text-cafe">
+        <h3 className="mt-0.5 line-clamp-2 text-sm font-semibold leading-snug text-texto">
           {product.name}
         </h3>
         {product.description && (
-          <p className="mt-1 line-clamp-2 text-xs leading-relaxed text-cafe/45">
+          <p className="mt-1 line-clamp-2 text-xs leading-relaxed text-texto/45">
             {product.description}
           </p>
         )}
 
         <div className="mt-auto flex items-center justify-between pt-3">
-          <span className="text-[16px] font-bold text-feira">
+          <span className="text-[16px] font-bold text-azul">
             {formatCents(product.price_cents)}
           </span>
           <button
@@ -70,13 +70,13 @@ export function ProductCard({ product }: { product: CatalogProduct }) {
             }
             disabled={soldOut}
             aria-label={soldOut ? 'Sem estoque' : `Adicionar ${product.name} ao carrinho`}
-            className="flex h-9 w-9 items-center justify-center rounded-full bg-menta text-feira-dark shadow-sm transition hover:brightness-95 disabled:cursor-not-allowed disabled:bg-cafe/10 disabled:text-cafe/30"
+            className="flex h-9 w-9 items-center justify-center rounded-full bg-verde text-azul shadow-sm transition hover:brightness-95 disabled:cursor-not-allowed disabled:bg-azul/10 disabled:text-texto/30"
           >
             <Plus className="h-5 w-5" />
           </button>
         </div>
         {soldOut && (
-          <p className="mt-1.5 text-right text-[11px] font-medium text-tomate-dark">
+          <p className="mt-1.5 text-right text-[11px] font-medium text-erro-escuro">
             {product.stock === 0 ? 'Esgotado' : 'Quantidade máxima no carrinho'}
           </p>
         )}

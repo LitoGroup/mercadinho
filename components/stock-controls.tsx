@@ -29,7 +29,7 @@ export function StockControls({ productId, stock }: { productId: string; stock: 
         <button
           onClick={() => run(() => adjustStock(productId, -1))}
           disabled={pending || stock === 0}
-          className="h-8 w-8 rounded-lg border-2 border-cafe/15 font-bold text-cafe/70 hover:bg-creme disabled:opacity-30"
+          className="h-8 w-8 rounded-lg border-2 border-texto/15 font-bold text-texto/70 hover:bg-cinza-claro disabled:opacity-30"
           aria-label="Tirar 1 do estoque"
         >
           −
@@ -46,7 +46,7 @@ export function StockControls({ productId, stock }: { productId: string; stock: 
               if (e.key === 'Enter') run(() => setStock(productId, Number(value || 0)))
               if (e.key === 'Escape') setEditing(false)
             }}
-            className="h-8 w-14 rounded-lg border-2 border-feira text-center font-bold focus:outline-none"
+            className="h-8 w-14 rounded-lg border-2 border-azul text-center font-bold focus:outline-none"
           />
         ) : (
           <button
@@ -57,10 +57,10 @@ export function StockControls({ productId, stock }: { productId: string; stock: 
             disabled={pending}
             className={`h-8 min-w-14 rounded-lg px-2 font-bold ${
               stock === 0
-                ? 'bg-tomate/15 text-tomate-dark'
+                ? 'bg-erro/10 text-erro-escuro'
                 : stock <= 5
-                  ? 'bg-banana/40 text-cafe'
-                  : 'bg-feira/10 text-feira-dark'
+                  ? 'bg-alerta/20 text-texto'
+                  : 'bg-verde/10 text-azul'
             }`}
             title="Clique para digitar o valor"
           >
@@ -71,7 +71,7 @@ export function StockControls({ productId, stock }: { productId: string; stock: 
         <button
           onClick={() => run(() => adjustStock(productId, 1))}
           disabled={pending}
-          className="h-8 w-8 rounded-lg border-2 border-cafe/15 font-bold text-cafe/70 hover:bg-creme disabled:opacity-30"
+          className="h-8 w-8 rounded-lg border-2 border-texto/15 font-bold text-texto/70 hover:bg-cinza-claro disabled:opacity-30"
           aria-label="Somar 1 ao estoque"
         >
           +
@@ -79,13 +79,13 @@ export function StockControls({ productId, stock }: { productId: string; stock: 
         <button
           onClick={() => run(() => adjustStock(productId, 10))}
           disabled={pending}
-          className="h-8 rounded-lg border-2 border-cafe/15 px-1.5 text-xs font-bold text-cafe/70 hover:bg-creme disabled:opacity-30"
+          className="h-8 rounded-lg border-2 border-texto/15 px-1.5 text-xs font-bold text-texto/70 hover:bg-cinza-claro disabled:opacity-30"
           aria-label="Somar 10 ao estoque"
         >
           +10
         </button>
       </div>
-      {error && <p className="mt-1 text-right text-xs text-tomate-dark">{error}</p>}
+      {error && <p className="mt-1 text-right text-xs text-erro-escuro">{error}</p>}
     </div>
   )
 }

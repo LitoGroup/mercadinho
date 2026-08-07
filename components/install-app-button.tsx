@@ -52,7 +52,7 @@ export function InstallAppButton() {
       <button
         type="button"
         onClick={handleClick}
-        className="flex w-full items-center justify-center gap-2.5 rounded-xl border-2 border-feira bg-white py-3.5 font-bold uppercase tracking-wide text-feira transition hover:bg-feira hover:text-white"
+        className="flex w-full items-center justify-center gap-2.5 rounded-xl border-2 border-azul bg-white py-3.5 font-bold uppercase tracking-wide text-azul transition hover:bg-azul hover:text-white"
       >
         <Smartphone className="h-5 w-5" />
         Instalar o app no celular
@@ -70,10 +70,10 @@ export function InstallAppButton() {
             aria-label="Como instalar o app"
           >
             <div className="mb-4 flex items-start justify-between">
-              <h2 className="text-lg font-bold text-cafe">Instalar no {isIOS ? 'iPhone' : 'celular'}</h2>
+              <h2 className="text-lg font-bold text-texto">Instalar no {isIOS ? 'iPhone' : 'celular'}</h2>
               <button
                 onClick={() => setShowHelp(false)}
-                className="rounded-lg p-1 text-cafe/40 hover:bg-creme"
+                className="rounded-lg p-1 text-texto/40 hover:bg-cinza-claro"
                 aria-label="Fechar"
               >
                 <X className="h-5 w-5" />
@@ -81,28 +81,28 @@ export function InstallAppButton() {
             </div>
 
             {isIOS ? (
-              <ol className="space-y-4 text-sm text-cafe/80">
+              <ol className="space-y-4 text-sm text-texto/80">
                 <li className="flex items-start gap-3">
-                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-feira text-xs font-bold text-white">
+                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-azul text-xs font-bold text-white">
                     1
                   </span>
                   <span>
                     Toque no botão <strong>Compartilhar</strong>{' '}
-                    <Share className="inline h-4 w-4 text-feira" /> na barra do Safari (embaixo, no
+                    <Share className="inline h-4 w-4 text-azul" /> na barra do Safari (embaixo, no
                     meio).
                   </span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-feira text-xs font-bold text-white">
+                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-azul text-xs font-bold text-white">
                     2
                   </span>
                   <span>
                     Role a lista e toque em <strong>Adicionar à Tela de Início</strong>{' '}
-                    <SquarePlus className="inline h-4 w-4 text-feira" />.
+                    <SquarePlus className="inline h-4 w-4 text-azul" />.
                   </span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-feira text-xs font-bold text-white">
+                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-azul text-xs font-bold text-white">
                     3
                   </span>
                   <span>
@@ -112,9 +112,9 @@ export function InstallAppButton() {
                 </li>
               </ol>
             ) : (
-              <ol className="space-y-4 text-sm text-cafe/80">
+              <ol className="space-y-4 text-sm text-texto/80">
                 <li className="flex items-start gap-3">
-                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-feira text-xs font-bold text-white">
+                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-azul text-xs font-bold text-white">
                     1
                   </span>
                   <span>
@@ -122,7 +122,7 @@ export function InstallAppButton() {
                   </span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-feira text-xs font-bold text-white">
+                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-azul text-xs font-bold text-white">
                     2
                   </span>
                   <span>
@@ -131,7 +131,7 @@ export function InstallAppButton() {
                   </span>
                 </li>
                 <li className="flex items-start gap-3">
-                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-feira text-xs font-bold text-white">
+                  <span className="flex h-7 w-7 shrink-0 items-center justify-center rounded-full bg-azul text-xs font-bold text-white">
                     3
                   </span>
                   <span>Confirme. O Mercadinho aparece na tela inicial como um app.</span>

@@ -9,7 +9,7 @@ export default async function ShopLayout({ children }: { children: React.ReactNo
 
   return (
     <CartProvider>
-      <div className="min-h-screen bg-creme">
+      <div className="min-h-screen bg-cinza-claro">
         <ShopHeader
           userName={profile.name}
           isAdmin={profile.role === 'admin'}

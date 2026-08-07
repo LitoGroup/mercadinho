@@ -1,28 +1,33 @@
 @import "tailwindcss";
 
 @theme inline {
-  /* Identidade Lito Aviation Academy */
-  --color-feira: #0f462d; /* verde institucional Lito */
-  --color-feira-dark: #0a3421;
-  --color-menta: #29df8c; /* verde-ação (CTA) */
-  --color-tomate: #dc2626; /* erros */
-  --color-tomate-dark: #b91c1c;
-  --color-banana: #f59e0b; /* avisos (estoque acabando) */
-  --color-creme: #f2f5f9; /* fundo neutro frio */
-  --color-cafe: #23282c; /* texto */
+  /* Identidade oficial Lito Aviation Academy (Brand Colors) */
+  --color-azul: #002e53; /* AZUL — cor principal */
+  --color-azul-claro: #023e6e; /* hover/superfícies */
+  --color-azul-escuro: #001d36; /* fundos profundos */
+  --color-verde: #1ec555; /* VERDE — ações e confirmações */
+  --color-verde-escuro: #169b42; /* hover do verde */
+  --color-cinza: #b0aaaa; /* CINZA — neutro da marca */
+  --color-cinza-claro: #f4f5f7; /* fundo das telas */
+
+  /* Sinalização */
+  --color-alerta: #d97706;
+  --color-erro: #dc2626;
+  --color-erro-escuro: #b91c1c;
+
+  --color-texto: #1b2733;
 
   --font-sans: var(--font-body), system-ui, sans-serif;
-  --font-slab: var(--font-body), system-ui, sans-serif;
 }
 
 body {
-  background: var(--color-creme);
-  color: var(--color-cafe);
+  background: var(--color-cinza-claro);
+  color: var(--color-texto);
   font-family: var(--font-sans);
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-feira);
+  outline: 2px solid var(--color-verde);
   outline-offset: 2px;
 }
 

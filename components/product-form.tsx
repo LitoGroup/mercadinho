@@ -67,7 +67,7 @@ export function ProductForm({
   }
 
   const inputCls =
-    'w-full rounded-lg border border-gray-300 px-3 py-2 focus:border-feira focus:outline-none'
+    'w-full rounded-lg border border-texto/15 px-3 py-2 focus:border-azul focus:outline-none'
 
   return (
     <form action={handleSubmit} className="mx-auto max-w-lg space-y-4">
@@ -93,7 +93,7 @@ export function ProductForm({
 
       <div className="flex gap-2">
         <div className="flex-1">
-          <label htmlFor="ean" className="mb-1 block text-sm font-medium text-gray-700">
+          <label htmlFor="ean" className="mb-1 block text-sm font-medium text-texto/80">
             Código de barras (EAN)
           </label>
           <input
@@ -108,7 +108,7 @@ export function ProductForm({
         <button
           type="button"
           onClick={() => setScanning(true)}
-          className="self-end rounded-lg border border-feira/40 px-3 py-2 text-feira-dark hover:bg-feira/10"
+          className="self-end rounded-lg border border-azul/30 px-3 py-2 text-azul hover:bg-verde/10"
         >
           Escanear
         </button>
@@ -118,14 +118,14 @@ export function ProductForm({
         type="button"
         onClick={generateWithAI}
         disabled={aiBusy || (!photoBlob && !ean)}
-        className="w-full rounded-lg border border-feira/30 bg-feira/5 py-2.5 font-semibold text-feira-dark transition hover:bg-feira/10 disabled:cursor-not-allowed disabled:opacity-50"
+        className="w-full rounded-lg border border-azul/30 bg-azul/5 py-2.5 font-semibold text-azul transition hover:bg-verde/10 disabled:cursor-not-allowed disabled:opacity-50"
       >
         {aiBusy ? 'Gerando descrição…' : 'Gerar nome e descrição com IA'}
       </button>
-      {aiError && <p className="rounded-lg bg-amber-50 p-3 text-sm text-amber-800">{aiError}</p>}
+      {aiError && <p className="rounded-lg bg-alerta/10 p-3 text-sm text-alerta">{aiError}</p>}
 
       <div>
-        <label htmlFor="name" className="mb-1 block text-sm font-medium text-gray-700">
+        <label htmlFor="name" className="mb-1 block text-sm font-medium text-texto/80">
           Nome *
         </label>
         <input
@@ -139,7 +139,7 @@ export function ProductForm({
       </div>
 
       <div>
-        <label htmlFor="description" className="mb-1 block text-sm font-medium text-gray-700">
+        <label htmlFor="description" className="mb-1 block text-sm font-medium text-texto/80">
           Descrição
         </label>
         <textarea
@@ -154,7 +154,7 @@ export function ProductForm({
 
       <div className="grid grid-cols-3 gap-3">
         <div>
-          <label htmlFor="category" className="mb-1 block text-sm font-medium text-gray-700">
+          <label htmlFor="category" className="mb-1 block text-sm font-medium text-texto/80">
             Categoria
           </label>
           <input
@@ -167,7 +167,7 @@ export function ProductForm({
           />
         </div>
         <div>
-          <label htmlFor="price" className="mb-1 block text-sm font-medium text-gray-700">
+          <label htmlFor="price" className="mb-1 block text-sm font-medium text-texto/80">
             Preço (R$) *
           </label>
           <input
@@ -181,7 +181,7 @@ export function ProductForm({
           />
         </div>
         <div>
-          <label htmlFor="stock" className="mb-1 block text-sm font-medium text-gray-700">
+          <label htmlFor="stock" className="mb-1 block text-sm font-medium text-texto/80">
             Estoque *
           </label>
           <input
@@ -196,17 +196,17 @@ export function ProductForm({
         </div>
       </div>
 
-      <label className="flex items-center gap-2 text-sm text-gray-700">
+      <label className="flex items-center gap-2 text-sm text-texto/80">
         <input type="checkbox" name="active" defaultChecked={product?.active ?? true} />
         Produto ativo (visível no catálogo)
       </label>
 
-      {state.error && <p className="rounded-lg bg-red-50 p-3 text-sm text-red-700">{state.error}</p>}
+      {state.error && <p className="rounded-lg bg-erro/8 p-3 text-sm text-erro-escuro">{state.error}</p>}
 
       <button
         type="submit"
         disabled={pending}
-        className="w-full rounded-xl bg-feira py-3 font-bold text-white hover:bg-feira-dark disabled:bg-gray-300"
+        className="w-full rounded-xl bg-azul py-3 font-bold text-white hover:bg-azul-claro disabled:bg-texto/15"
       >
         {pending ? 'Salvando…' : product ? 'Salvar alterações' : 'Cadastrar produto'}
       </button>

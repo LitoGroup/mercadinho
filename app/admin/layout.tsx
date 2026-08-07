@@ -16,15 +16,16 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   await requireAdmin()
 
   return (
-    <div className="min-h-screen bg-creme">
-      <header className="sticky top-0 z-10 bg-feira-dark text-white">
+    <div className="min-h-screen bg-cinza-claro">
+      <header className="sticky top-0 z-10 bg-azul text-white">
         <div className="mx-auto flex max-w-5xl items-center justify-between gap-2 px-4 py-3">
-          <Link href="/admin/pedidos" className="leading-tight">
-            <span className="block text-sm font-bold uppercase leading-none tracking-[0.08em]">
-              Mercadinho <span className="text-menta">do Lito</span>
-            </span>
-            <span className="text-[10px] font-medium uppercase tracking-[0.25em] text-white/50">
-              Gerência
+          <Link href="/admin/pedidos" className="flex items-center gap-2.5">
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img src="/logo-lito-branco.png" alt="Lito Aviation Academy" className="h-8 w-auto" />
+            <span className="border-l border-white/20 pl-2.5 text-[10px] font-semibold uppercase leading-tight tracking-[0.18em] text-white/60">
+              Mercadinho
+              <br />
+              <span className="text-verde">Gerência</span>
             </span>
           </Link>
           <nav className="flex items-center gap-1 text-sm">

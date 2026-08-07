@@ -1,13 +1,15 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512">
-  <!-- Ícone Mercadinho do Lito — identidade Lito Aviation Academy -->
-  <rect width="512" height="512" rx="96" fill="#0F462D"/>
-  <g transform="translate(116 128)" fill="none" stroke="#29DF8C" stroke-width="26" stroke-linecap="round" stroke-linejoin="round">
-    <!-- Cesta -->
-    <path d="M10 90 L270 90 L240 250 Q236 268 218 268 L62 268 Q44 268 40 250 Z"/>
-    <!-- Alça -->
-    <path d="M85 90 Q85 5 140 5 Q195 5 195 90"/>
-    <!-- Divisórias -->
-    <line x1="105" y1="130" x2="112" y2="225"/>
-    <line x1="175" y1="130" x2="168" y2="225"/>
+  <!-- Mercadinho do Lito — cesta com avião, cores oficiais Lito Aviation Academy -->
+  <rect width="512" height="512" rx="96" fill="#002E53"/>
+  <!-- Avião decolando (referência ao símbolo da marca) -->
+  <g transform="translate(256 150) rotate(28) translate(-256 -150)" fill="#1EC555">
+    <path d="M256 88 L268 92 L272 140 L330 168 L330 184 L268 170 L266 200 L286 216 L286 226 L256 220 L226 226 L226 216 L246 200 L244 170 L182 184 L182 168 L240 140 L244 92 Z"/>
+  </g>
+  <!-- Cesta -->
+  <g transform="translate(140 250)" fill="none" stroke="#FFFFFF" stroke-width="24" stroke-linecap="round" stroke-linejoin="round">
+    <path d="M14 62 L218 62 L194 194 Q191 210 175 210 L57 210 Q41 210 38 194 Z"/>
+    <line x1="78" y1="102" x2="86" y2="176"/>
+    <line x1="116" y1="102" x2="116" y2="176"/>
+    <line x1="154" y1="102" x2="146" y2="176"/>
   </g>
 </svg>

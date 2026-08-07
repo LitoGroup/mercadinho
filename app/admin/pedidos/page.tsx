@@ -57,18 +57,18 @@ export default async function AdminOrdersPage({
 
   return (
     <div>
-      <h1 className="mb-4 text-xl font-bold text-gray-900">Conferência de pedidos</h1>
+      <h1 className="mb-4 text-xl font-bold text-texto">Conferência de pedidos</h1>
 
       <form className="mb-4 grid grid-cols-2 items-end gap-3 sm:flex sm:flex-wrap">
         <div>
-          <label htmlFor="mes" className="mb-1 block text-xs font-medium text-gray-500">
+          <label htmlFor="mes" className="mb-1 block text-xs font-medium text-texto/50">
             Mês
           </label>
           <select
             id="mes"
             name="mes"
             defaultValue={mes}
-            className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm sm:w-auto"
+            className="w-full rounded-lg border border-texto/15 bg-white px-3 py-2 text-sm sm:w-auto"
           >
             {months.map((m) => (
               <option key={m.value} value={m.value}>
@@ -78,7 +78,7 @@ export default async function AdminOrdersPage({
           </select>
         </div>
         <div>
-          <label htmlFor="dia" className="mb-1 block text-xs font-medium text-gray-500">
+          <label htmlFor="dia" className="mb-1 block text-xs font-medium text-texto/50">
             Dia (opcional)
           </label>
           <input
@@ -86,18 +86,18 @@ export default async function AdminOrdersPage({
             id="dia"
             name="dia"
             defaultValue={dia ?? ''}
-            className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm sm:w-auto"
+            className="w-full rounded-lg border border-texto/15 bg-white px-3 py-2 text-sm sm:w-auto"
           />
         </div>
         <div>
-          <label htmlFor="status" className="mb-1 block text-xs font-medium text-gray-500">
+          <label htmlFor="status" className="mb-1 block text-xs font-medium text-texto/50">
             Status
           </label>
           <select
             id="status"
             name="status"
             defaultValue={status ?? ''}
-            className="w-full rounded-lg border border-gray-300 bg-white px-3 py-2 text-sm sm:w-auto"
+            className="w-full rounded-lg border border-texto/15 bg-white px-3 py-2 text-sm sm:w-auto"
           >
             <option value="">Todos</option>
             <option value="pending">Aguardando</option>
@@ -107,14 +107,14 @@ export default async function AdminOrdersPage({
         </div>
         <button
           type="submit"
-          className="w-full rounded-lg bg-cafe px-4 py-2 text-sm font-semibold text-white hover:opacity-90 sm:w-auto"
+          className="w-full rounded-lg bg-azul px-4 py-2 text-sm font-semibold text-white hover:opacity-90 sm:w-auto"
         >
           Filtrar
         </button>
         {dia && (
           <Link
             href={`/admin/pedidos?mes=${mes}${status ? `&status=${status}` : ''}`}
-            className="pb-2 text-sm font-medium text-tomate-dark underline"
+            className="pb-2 text-sm font-medium text-erro-escuro underline"
           >
             Limpar dia
           </Link>
@@ -122,28 +122,28 @@ export default async function AdminOrdersPage({
       </form>
 
       {dia && (
-        <p className="mb-3 -mt-1 text-sm text-gray-500">
+        <p className="mb-3 -mt-1 text-sm text-texto/50">
           Mostrando pedidos de <strong>{dia.split('-').reverse().join('/')}</strong>.
         </p>
       )}
 
       <div className="mb-4 grid grid-cols-3 gap-3 text-center">
-        <div className="rounded-xl border border-gray-100 bg-white p-3 shadow-sm">
-          <p className="text-xs text-gray-500">Pedidos</p>
-          <p className="text-lg font-bold text-gray-900">{orders.length}</p>
+        <div className="rounded-xl border border-texto/8 bg-white p-3 shadow-sm">
+          <p className="text-xs text-texto/50">Pedidos</p>
+          <p className="text-lg font-bold text-texto">{orders.length}</p>
         </div>
-        <div className="rounded-xl border border-gray-100 bg-white p-3 shadow-sm">
-          <p className="text-xs text-gray-500">Total do período</p>
-          <p className="text-lg font-bold text-feira-dark">{formatCents(total)}</p>
+        <div className="rounded-xl border border-texto/8 bg-white p-3 shadow-sm">
+          <p className="text-xs text-texto/50">Total do período</p>
+          <p className="text-lg font-bold text-azul">{formatCents(total)}</p>
         </div>
-        <div className="rounded-xl border border-gray-100 bg-white p-3 shadow-sm">
-          <p className="text-xs text-gray-500">Aguardando</p>
-          <p className="text-lg font-bold text-amber-600">{pendentes}</p>
+        <div className="rounded-xl border border-texto/8 bg-white p-3 shadow-sm">
+          <p className="text-xs text-texto/50">Aguardando</p>
+          <p className="text-lg font-bold text-alerta">{pendentes}</p>
         </div>
       </div>
 
       {orders.length === 0 ? (
-        <p className="py-16 text-center text-gray-500">Nenhum pedido nesse período.</p>
+        <p className="py-16 text-center text-texto/50">Nenhum pedido nesse período.</p>
       ) : (
         <>
           {/* Celular: cada pedido é um cartão tocável, sem rolagem lateral */}
@@ -152,22 +152,22 @@ export default async function AdminOrdersPage({
               <li key={o.id}>
                 <Link
                   href={`/admin/pedidos/${o.id}`}
-                  className="block rounded-xl border border-gray-100 bg-white p-4 shadow-sm active:bg-gray-50"
+                  className="block rounded-xl border border-texto/8 bg-white p-4 shadow-sm active:bg-cinza-claro"
                 >
                   <div className="flex items-start justify-between gap-3">
                     <div className="min-w-0">
-                      <p className="truncate font-semibold text-gray-900">
+                      <p className="truncate font-semibold text-texto">
                         {o.profiles?.name ?? '—'}
                       </p>
-                      <p className="text-xs text-gray-500">{formatDate(o.created_at)}</p>
+                      <p className="text-xs text-texto/50">{formatDate(o.created_at)}</p>
                     </div>
-                    <p className="shrink-0 font-bold text-feira-dark">
+                    <p className="shrink-0 font-bold text-azul">
                       {formatCents(o.total_cents)}
                     </p>
                   </div>
                   <div className="mt-3 flex items-center justify-between gap-2">
                     <OrderStatusBadge status={o.status} />
-                    <span className="text-sm font-semibold text-feira-dark">Conferir →</span>
+                    <span className="text-sm font-semibold text-azul">Conferir →</span>
                   </div>
                 </Link>
               </li>
@@ -175,9 +175,9 @@ export default async function AdminOrdersPage({
           </ul>
 
           {/* Desktop: tabela */}
-          <div className="hidden rounded-xl border border-gray-100 bg-white shadow-sm sm:block">
+          <div className="hidden rounded-xl border border-texto/8 bg-white shadow-sm sm:block">
             <table className="w-full text-sm">
-            <thead className="bg-gray-50 text-left text-gray-500">
+            <thead className="bg-cinza-claro text-left text-texto/50">
               <tr>
                 <th className="p-3">Data</th>
                 <th className="p-3">Cliente</th>
@@ -186,11 +186,11 @@ export default async function AdminOrdersPage({
                 <th className="p-3"></th>
               </tr>
             </thead>
-            <tbody className="divide-y divide-gray-50">
+            <tbody className="divide-y divide-texto/5">
               {orders.map((o) => (
                 <tr key={o.id}>
-                  <td className="p-3 text-gray-600">{formatDate(o.created_at)}</td>
-                  <td className="p-3 font-medium text-gray-900">{o.profiles?.name ?? '—'}</td>
+                  <td className="p-3 text-texto/70">{formatDate(o.created_at)}</td>
+                  <td className="p-3 font-medium text-texto">{o.profiles?.name ?? '—'}</td>
                   <td className="p-3 font-medium">{formatCents(o.total_cents)}</td>
                   <td className="p-3">
                     <OrderStatusBadge status={o.status} />
@@ -198,7 +198,7 @@ export default async function AdminOrdersPage({
                   <td className="p-3 text-right">
                     <Link
                       href={`/admin/pedidos/${o.id}`}
-                      className="font-medium text-feira-dark hover:underline"
+                      className="font-medium text-azul hover:underline"
                     >
                       Conferir
                     </Link>

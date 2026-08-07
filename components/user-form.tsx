@@ -12,15 +12,15 @@ export function UserForm() {
   }, [state.ok])
 
   const inputCls =
-    'w-full rounded-lg border border-gray-300 px-3 py-2 text-sm focus:border-feira focus:outline-none'
+    'w-full rounded-lg border border-texto/15 px-3 py-2 text-sm focus:border-azul focus:outline-none'
 
   return (
     <form
       ref={formRef}
       action={formAction}
-      className="rounded-xl border border-gray-100 bg-white p-4 shadow-sm"
+      className="rounded-xl border border-texto/8 bg-white p-4 shadow-sm"
     >
-      <h2 className="mb-3 font-semibold text-gray-700">Novo usuário</h2>
+      <h2 className="mb-3 font-semibold text-texto/80">Novo usuário</h2>
       <div className="grid gap-3 sm:grid-cols-2">
         <input name="name" required placeholder="Nome completo" className={inputCls} />
         <input name="email" type="email" required placeholder="email@empresa.com" className={inputCls} />
@@ -38,10 +38,10 @@ export function UserForm() {
       </div>
 
       {state.error && (
-        <p className="mt-3 rounded-lg bg-red-50 p-3 text-sm text-red-700">{state.error}</p>
+        <p className="mt-3 rounded-lg bg-erro/8 p-3 text-sm text-erro-escuro">{state.error}</p>
       )}
       {state.ok && (
-        <p className="mt-3 rounded-lg bg-feira/10 p-3 text-sm text-feira-dark">
+        <p className="mt-3 rounded-lg bg-verde/10 p-3 text-sm text-azul">
           Usuário criado! Compartilhe o email e a senha temporária com a pessoa.
         </p>
       )}
@@ -49,7 +49,7 @@ export function UserForm() {
       <button
         type="submit"
         disabled={pending}
-        className="mt-3 rounded-lg bg-feira px-4 py-2 font-semibold text-white hover:bg-feira-dark disabled:bg-gray-300"
+        className="mt-3 rounded-lg bg-azul px-4 py-2 font-semibold text-white hover:bg-azul-claro disabled:bg-texto/15"
       >
         {pending ? 'Criando…' : 'Criar usuário'}
       </button>

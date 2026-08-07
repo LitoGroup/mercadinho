@@ -26,25 +26,25 @@ export default async function AdminOrderDetailPage({
 
   return (
     <div className="mx-auto max-w-lg">
-      <Link href="/admin/pedidos" className="text-sm text-gray-500 hover:underline">
+      <Link href="/admin/pedidos" className="text-sm text-texto/50 hover:underline">
         ← Voltar aos pedidos
       </Link>
 
-      <div className="mt-3 rounded-xl border border-gray-100 bg-white p-4 shadow-sm">
+      <div className="mt-3 rounded-xl border border-texto/8 bg-white p-4 shadow-sm">
         <div className="flex items-start justify-between gap-2">
           <div>
-            <h1 className="font-bold text-gray-900">{data.profiles?.name ?? 'Cliente'}</h1>
-            <p className="text-sm text-gray-500">{formatDate(data.created_at)}</p>
+            <h1 className="font-bold text-texto">{data.profiles?.name ?? 'Cliente'}</h1>
+            <p className="text-sm text-texto/50">{formatDate(data.created_at)}</p>
           </div>
           <OrderStatusBadge status={data.status} />
         </div>
 
-        <ul className="mt-4 space-y-1 border-t border-gray-50 pt-3 text-sm text-gray-700">
+        <ul className="mt-4 space-y-1 border-t border-texto/6 pt-3 text-sm text-texto/80">
           {data.order_items?.map((item) => (
             <li key={item.id} className="flex justify-between">
               <span>
                 {item.quantity}× {item.product_name}
-                <span className="text-gray-400"> ({formatCents(item.unit_price_cents)} un.)</span>
+                <span className="text-texto/40"> ({formatCents(item.unit_price_cents)} un.)</span>
               </span>
               <span className="font-medium">
                 {formatCents(item.unit_price_cents * item.quantity)}
@@ -52,22 +52,22 @@ export default async function AdminOrderDetailPage({
             </li>
           ))}
         </ul>
-        <div className="mt-2 flex justify-between border-t border-gray-100 pt-2 font-bold">
+        <div className="mt-2 flex justify-between border-t border-texto/8 pt-2 font-bold">
           <span>Total</span>
-          <span className="text-feira-dark">{formatCents(data.total_cents)}</span>
+          <span className="text-azul">{formatCents(data.total_cents)}</span>
         </div>
       </div>
 
-      <div className="mt-4 rounded-xl border border-gray-100 bg-white p-4 shadow-sm">
-        <h2 className="mb-2 font-semibold text-gray-700">Comprovante</h2>
+      <div className="mt-4 rounded-xl border border-texto/8 bg-white p-4 shadow-sm">
+        <h2 className="mb-2 font-semibold text-texto/80">Comprovante</h2>
         {!receiptUrl ? (
-          <p className="text-sm text-red-600">Não foi possível carregar o comprovante.</p>
+          <p className="text-sm text-erro-escuro">Não foi possível carregar o comprovante.</p>
         ) : isPdf ? (
           <a
             href={receiptUrl}
             target="_blank"
             rel="noreferrer"
-            className="inline-block rounded-lg bg-slate-800 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-700"
+            className="inline-block rounded-lg bg-azul px-4 py-2 text-sm font-semibold text-white hover:bg-azul-claro"
           >
             Abrir PDF do comprovante
           </a>
@@ -81,16 +81,16 @@ export default async function AdminOrderDetailPage({
             />
           </a>
         )}
-        <p className="mt-2 text-xs text-gray-400">
+        <p className="mt-2 text-xs text-texto/40">
           Confira se o valor e a data batem com o total do pedido.
         </p>
       </div>
 
-      <div className="mt-4 rounded-xl border border-gray-100 bg-white p-4 shadow-sm">
+      <div className="mt-4 rounded-xl border border-texto/8 bg-white p-4 shadow-sm">
         {data.status === 'pending' ? (
           <ReviewButtons orderId={data.id} />
         ) : (
-          <div className="text-sm text-gray-600">
+          <div className="text-sm text-texto/70">
             <p>
               Conferido em {data.reviewed_at ? formatDate(data.reviewed_at) : '—'}.
             </p>

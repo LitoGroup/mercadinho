@@ -22,13 +22,13 @@ export function UserActiveToggle({ userId, active }: { userId: string; active: b
         disabled={pending}
         className={`rounded-lg px-3 py-1.5 text-xs font-semibold ${
           active
-            ? 'border border-red-200 text-red-600 hover:bg-red-50'
-            : 'bg-feira text-white hover:bg-feira-dark'
+            ? 'border border-erro/25 text-erro-escuro hover:bg-erro/8'
+            : 'bg-azul text-white hover:bg-azul-claro'
         } disabled:opacity-50`}
       >
         {pending ? '…' : active ? 'Desativar' : 'Reativar'}
       </button>
-      {error && <p className="mt-1 text-xs text-red-600">{error}</p>}
+      {error && <p className="mt-1 text-xs text-erro-escuro">{error}</p>}
     </div>
   )
 }

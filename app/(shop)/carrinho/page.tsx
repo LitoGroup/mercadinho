@@ -11,11 +11,11 @@ export default function CartPage() {
   if (items.length === 0) {
     return (
       <div className="py-16 text-center">
-        <ShoppingBasket className="mx-auto h-12 w-12 text-cafe/20" strokeWidth={1.5} />
-        <p className="mt-3 text-gray-500">Seu carrinho está vazio.</p>
+        <ShoppingBasket className="mx-auto h-12 w-12 text-texto/20" strokeWidth={1.5} />
+        <p className="mt-3 text-texto/50">Seu carrinho está vazio.</p>
         <Link
           href="/"
-          className="mt-4 inline-block rounded-lg bg-feira px-4 py-2 font-semibold text-white hover:bg-feira-dark"
+          className="mt-4 inline-block rounded-lg bg-azul px-4 py-2 font-semibold text-white hover:bg-azul-claro"
         >
           Ver produtos
         </Link>
@@ -25,29 +25,29 @@ export default function CartPage() {
 
   return (
     <div className="mx-auto max-w-lg">
-      <h1 className="mb-4 text-xl font-bold text-gray-900">Carrinho</h1>
+      <h1 className="mb-4 text-xl font-bold text-texto">Carrinho</h1>
       <ul className="space-y-3">
         {items.map((item) => (
           <li
             key={item.productId}
-            className="flex items-center gap-3 rounded-xl border border-gray-100 bg-white p-3 shadow-sm"
+            className="flex items-center gap-3 rounded-xl border border-texto/8 bg-white p-3 shadow-sm"
           >
-            <div className="flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-gray-50">
+            <div className="flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-cinza-claro">
               {item.imageUrl ? (
                 // eslint-disable-next-line @next/next/no-img-element
                 <img src={item.imageUrl} alt={item.name} className="h-full w-full object-cover" />
               ) : (
-                <ShoppingBasket className="h-6 w-6 text-cafe/20" />
+                <ShoppingBasket className="h-6 w-6 text-texto/20" />
               )}
             </div>
             <div className="min-w-0 flex-1">
-              <p className="truncate font-medium text-gray-900">{item.name}</p>
-              <p className="text-sm text-feira-dark">{formatCents(item.priceCents)}</p>
+              <p className="truncate font-medium text-texto">{item.name}</p>
+              <p className="text-sm text-azul">{formatCents(item.priceCents)}</p>
             </div>
             <div className="flex items-center gap-1">
               <button
                 onClick={() => setQty(item.productId, item.qty - 1)}
-                className="h-8 w-8 rounded-lg border border-gray-200 font-bold text-gray-600 hover:bg-gray-50"
+                className="h-8 w-8 rounded-lg border border-texto/10 font-bold text-texto/70 hover:bg-cinza-claro"
                 aria-label="Diminuir"
               >
                 −
@@ -56,7 +56,7 @@ export default function CartPage() {
               <button
                 onClick={() => setQty(item.productId, item.qty + 1)}
                 disabled={item.qty >= item.maxStock}
-                className="h-8 w-8 rounded-lg border border-gray-200 font-bold text-gray-600 hover:bg-gray-50 disabled:opacity-40"
+                className="h-8 w-8 rounded-lg border border-texto/10 font-bold text-texto/70 hover:bg-cinza-claro disabled:opacity-40"
                 aria-label="Aumentar"
               >
                 +
@@ -64,7 +64,7 @@ export default function CartPage() {
             </div>
             <button
               onClick={() => remove(item.productId)}
-              className="text-gray-300 hover:text-red-500"
+              className="text-texto/30 hover:text-erro"
               aria-label={`Remover ${item.name}`}
             >
               ✕
@@ -73,14 +73,14 @@ export default function CartPage() {
         ))}
       </ul>
 
-      <div className="mt-6 rounded-xl border border-cafe/10 bg-white p-4 shadow-sm">
+      <div className="mt-6 rounded-xl border border-texto/10 bg-white p-4 shadow-sm">
         <div className="flex items-center justify-between text-lg">
-          <span className="font-medium text-gray-700">Total</span>
-          <span className="font-bold text-feira-dark">{formatCents(totalCents)}</span>
+          <span className="font-medium text-texto/80">Total</span>
+          <span className="font-bold text-azul">{formatCents(totalCents)}</span>
         </div>
         <Link
           href="/checkout"
-          className="mt-4 block rounded-xl bg-menta py-3 text-center font-bold uppercase tracking-wide text-feira-dark transition hover:brightness-95"
+          className="mt-4 block rounded-xl bg-verde py-3 text-center font-bold uppercase tracking-wide text-azul transition hover:brightness-95"
         >
           Finalizar compra
         </Link>

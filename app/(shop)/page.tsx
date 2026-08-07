@@ -41,12 +41,12 @@ export default async function CatalogPage({
           name="q"
           defaultValue={q ?? ''}
           placeholder="Buscar produto ou categoria…"
-          className="w-full rounded-xl border border-gray-200 bg-white px-4 py-2.5 shadow-sm focus:border-feira focus:outline-none"
+          className="w-full rounded-xl border border-texto/10 bg-white px-4 py-2.5 shadow-sm focus:border-azul focus:outline-none"
         />
       </form>
 
       {catalog.length === 0 ? (
-        <p className="py-16 text-center text-gray-500">
+        <p className="py-16 text-center text-texto/50">
           {q ? 'Nenhum produto encontrado para essa busca.' : 'Nenhum produto disponível no momento.'}
         </p>
       ) : (

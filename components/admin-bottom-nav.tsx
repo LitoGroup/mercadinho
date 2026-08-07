@@ -17,7 +17,7 @@ export function AdminBottomNav() {
 
   return (
     <nav
-      className="fixed inset-x-0 bottom-0 z-20 border-t border-white/10 bg-feira-dark pb-[env(safe-area-inset-bottom)] sm:hidden"
+      className="fixed inset-x-0 bottom-0 z-20 border-t border-white/10 bg-azul pb-[env(safe-area-inset-bottom)] sm:hidden"
       aria-label="Navegação da gerência"
     >
       <div className="grid grid-cols-5">
@@ -29,7 +29,7 @@ export function AdminBottomNav() {
               key={tab.href}
               href={tab.href}
               className={`flex flex-col items-center gap-1 py-2.5 text-[10px] font-medium ${
-                active ? 'text-menta' : 'text-white/40'
+                active ? 'text-verde' : 'text-white/40'
               }`}
             >
               <Icon className="h-5 w-5" strokeWidth={active ? 2.2 : 1.8} />

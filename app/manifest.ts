@@ -4,11 +4,11 @@ export default function manifest(): MetadataRoute.Manifest {
   return {
     name: 'Mercadinho do Lito',
     short_name: 'Mercadinho',
-    description: 'O mercadinho da firma — pegue, pague no PIX, pronto.',
+    description: 'Compras internas · Lito Aviation Academy',
     start_url: '/',
     display: 'standalone',
-    background_color: '#F2F5F9',
-    theme_color: '#0F462D',
+    background_color: '#F4F5F7',
+    theme_color: '#002E53',
     orientation: 'portrait',
     icons: [
       {
