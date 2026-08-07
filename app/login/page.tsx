@@ -1,5 +1,6 @@
 import { FileCheck2, QrCode, ShoppingBasket } from 'lucide-react'
 import { signIn } from '@/app/actions/auth'
+import { InstallAppButton } from '@/components/install-app-button'
 
 const ERROS: Record<string, string> = {
   credenciais: 'Email ou senha incorretos.',
@@ -135,6 +136,10 @@ export default async function LoginPage({
                 Entrar
               </button>
             </form>
+
+            <div className="mt-4">
+              <InstallAppButton />
+            </div>
 
             <p className="mt-6 text-center text-xs text-cafe/40">
               Sem conta? Peça ao administrador para criar a sua.
