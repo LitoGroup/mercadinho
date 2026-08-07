@@ -17,11 +17,11 @@ export default async function AdminLayout({ children }: { children: React.ReactN
 
   return (
     <div className="min-h-screen bg-creme">
-      <header className="sticky top-0 z-10 bg-cafe text-white">
+      <header className="sticky top-0 z-10 bg-feira-dark text-white">
         <div className="mx-auto flex max-w-5xl items-center justify-between gap-2 px-4 py-3">
           <Link href="/admin/pedidos" className="leading-tight">
-            <span className="block font-slab text-base font-semibold leading-none">
-              Mercadinho do Lito
+            <span className="block text-sm font-bold uppercase leading-none tracking-[0.08em]">
+              Mercadinho <span className="text-menta">do Lito</span>
             </span>
             <span className="text-[10px] font-medium uppercase tracking-[0.25em] text-white/50">
               Gerência

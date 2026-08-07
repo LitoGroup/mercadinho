@@ -80,7 +80,7 @@ export default function CartPage() {
         </div>
         <Link
           href="/checkout"
-          className="mt-4 block rounded-xl bg-feira py-3 text-center font-bold text-white hover:bg-feira-dark"
+          className="mt-4 block rounded-xl bg-menta py-3 text-center font-bold uppercase tracking-wide text-feira-dark transition hover:brightness-95"
         >
           Finalizar compra
         </Link>

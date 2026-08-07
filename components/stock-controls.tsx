@@ -55,7 +55,7 @@ export function StockControls({ productId, stock }: { productId: string; stock: 
               setEditing(true)
             }}
             disabled={pending}
-            className={`h-8 min-w-14 rounded-lg px-2 font-slab ${
+            className={`h-8 min-w-14 rounded-lg px-2 font-bold ${
               stock === 0
                 ? 'bg-tomate/15 text-tomate-dark'
                 : stock <= 5

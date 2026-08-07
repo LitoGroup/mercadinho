@@ -1,17 +1,18 @@
 @import "tailwindcss";
 
 @theme inline {
-  /* Paleta institucional do Mercadinho do Lito */
-  --color-feira: #166534; /* verde marca */
-  --color-feira-dark: #14532d;
-  --color-tomate: #dc2626; /* erros e alertas */
+  /* Identidade Lito Aviation Academy */
+  --color-feira: #0f462d; /* verde institucional Lito */
+  --color-feira-dark: #0a3421;
+  --color-menta: #29df8c; /* verde-ação (CTA) */
+  --color-tomate: #dc2626; /* erros */
   --color-tomate-dark: #b91c1c;
   --color-banana: #f59e0b; /* avisos (estoque acabando) */
-  --color-creme: #f6f6f4; /* fundo neutro */
-  --color-cafe: #211d19; /* texto */
+  --color-creme: #f2f5f9; /* fundo neutro frio */
+  --color-cafe: #23282c; /* texto */
 
   --font-sans: var(--font-body), system-ui, sans-serif;
-  --font-slab: var(--font-display), Georgia, serif;
+  --font-slab: var(--font-body), system-ui, sans-serif;
 }
 
 body {

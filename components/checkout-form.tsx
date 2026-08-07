@@ -204,7 +204,7 @@ export function CheckoutForm({
         <button
           type="submit"
           disabled={pending || !pixConfigured}
-          className="mt-4 w-full rounded-xl bg-feira py-3 font-bold text-white transition hover:bg-feira-dark disabled:cursor-not-allowed disabled:bg-gray-300"
+          className="mt-4 w-full rounded-xl bg-menta py-3 font-bold uppercase tracking-wide text-feira-dark transition hover:brightness-95 disabled:cursor-not-allowed disabled:bg-gray-300 disabled:text-gray-500"
         >
           {uploading ? 'Enviando comprovante…' : actionPending ? 'Registrando pedido…' : 'Concluir pedido'}
         </button>

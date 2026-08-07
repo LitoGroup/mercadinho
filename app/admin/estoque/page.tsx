@@ -141,7 +141,7 @@ export default async function AdminStockPage({
               </div>
               <div className="text-right">
                 <span
-                  className={`font-slab ${m.delta > 0 ? 'text-feira-dark' : 'text-tomate-dark'}`}
+                  className={`font-bold ${m.delta > 0 ? 'text-feira-dark' : 'text-tomate-dark'}`}
                 >
                   {m.delta > 0 ? `+${m.delta}` : m.delta}
                 </span>

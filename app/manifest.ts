@@ -7,8 +7,8 @@ export default function manifest(): MetadataRoute.Manifest {
     description: 'O mercadinho da firma — pegue, pague no PIX, pronto.',
     start_url: '/',
     display: 'standalone',
-    background_color: '#FBF3E0',
-    theme_color: '#0E6B3A',
+    background_color: '#F2F5F9',
+    theme_color: '#0F462D',
     orientation: 'portrait',
     icons: [
       {

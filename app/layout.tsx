@@ -1,21 +1,15 @@
 import type { Metadata, Viewport } from 'next'
-import { Archivo, Fraunces } from 'next/font/google'
+import { Montserrat } from 'next/font/google'
 import './globals.css'
 
-const display = Fraunces({
-  subsets: ['latin'],
-  variable: '--font-display',
-  axes: ['opsz'],
-})
-
-const body = Archivo({
+const montserrat = Montserrat({
   subsets: ['latin'],
   variable: '--font-body',
 })
 
 export const metadata: Metadata = {
   title: 'Mercadinho do Lito',
-  description: 'O mercadinho da firma — pegue, pague no PIX, pronto.',
+  description: 'Compras internas · Lito Aviation Academy',
   appleWebApp: {
     capable: true,
     title: 'Mercadinho',
@@ -27,15 +21,13 @@ export const viewport: Viewport = {
   width: 'device-width',
   initialScale: 1,
   viewportFit: 'cover',
-  themeColor: '#FBF3E0',
+  themeColor: '#0F462D',
 }
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="pt-BR">
-      <body className={`${display.variable} ${body.variable} font-sans antialiased`}>
-        {children}
-      </body>
+      <body className={`${montserrat.variable} font-sans antialiased`}>{children}</body>
     </html>
   )
 }

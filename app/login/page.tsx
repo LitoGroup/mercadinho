@@ -39,22 +39,24 @@ export default async function LoginPage({
         </span>
 
         <div className="relative">
-          <p className="font-slab text-xl font-semibold">Mercadinho do Lito</p>
+          <p className="text-lg font-bold uppercase tracking-[0.08em]">
+            Mercadinho <span className="text-menta">do Lito</span>
+          </p>
           <p className="mt-1 text-[11px] font-medium uppercase tracking-[0.3em] text-white/40">
-            LitoGroup
+            Lito Aviation Academy
           </p>
         </div>
 
         <div className="relative max-w-md">
-          <h1 className="font-slab text-4xl font-semibold leading-tight">
-            A lojinha da firma, agora no seu bolso.
+          <h1 className="text-3xl font-semibold uppercase leading-snug tracking-wide">
+            A lojinha da firma, <span className="text-menta">agora no seu bolso.</span>
           </h1>
           <ul className="mt-10 space-y-6">
             {PASSOS.map((passo) => {
               const Icon = passo.icon
               return (
                 <li key={passo.title} className="flex items-start gap-4">
-                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-white/10">
+                  <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-white/10 text-menta">
                     <Icon className="h-5 w-5" strokeWidth={1.8} />
                   </span>
                   <div>
@@ -68,7 +70,7 @@ export default async function LoginPage({
         </div>
 
         <p className="relative text-xs text-white/35">
-          © {new Date().getFullYear()} LitoGroup · uso interno
+          © {new Date().getFullYear()} Lito Aviation Academy · uso interno
         </p>
       </section>
 
@@ -76,16 +78,18 @@ export default async function LoginPage({
       <section className="flex flex-col bg-creme">
         {/* Faixa da marca no mobile */}
         <div className="bg-feira-dark px-6 pb-8 pt-10 text-white lg:hidden">
-          <p className="font-slab text-2xl font-semibold">Mercadinho do Lito</p>
+          <p className="text-xl font-bold uppercase tracking-[0.08em]">
+            Mercadinho <span className="text-menta">do Lito</span>
+          </p>
           <p className="mt-1 text-[11px] font-medium uppercase tracking-[0.3em] text-white/40">
-            Compras internas · LitoGroup
+            Lito Aviation Academy
           </p>
         </div>
 
         <div className="flex flex-1 items-center justify-center p-6">
           <div className="w-full max-w-sm">
             <div className="hidden lg:block">
-              <h2 className="font-slab text-2xl font-semibold text-cafe">Entrar</h2>
+              <h2 className="text-2xl font-bold text-cafe">Entrar</h2>
               <p className="mb-8 mt-1 text-sm text-cafe/50">
                 Use a conta criada pelo administrador.
               </p>
@@ -126,7 +130,7 @@ export default async function LoginPage({
               </div>
               <button
                 type="submit"
-                className="w-full rounded-lg bg-feira py-2.5 font-semibold text-white shadow-sm transition hover:bg-feira-dark"
+                className="w-full rounded-lg bg-menta py-2.5 font-bold uppercase tracking-wide text-feira-dark shadow-sm transition hover:brightness-95"
               >
                 Entrar
               </button>

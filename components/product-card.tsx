@@ -55,7 +55,7 @@ export function ProductCard({ product }: { product: CatalogProduct }) {
         )}
 
         <div className="mt-auto flex items-center justify-between pt-3">
-          <span className="font-slab text-[17px] font-semibold text-cafe">
+          <span className="text-[16px] font-bold text-feira">
             {formatCents(product.price_cents)}
           </span>
           <button
@@ -70,7 +70,7 @@ export function ProductCard({ product }: { product: CatalogProduct }) {
             }
             disabled={soldOut}
             aria-label={soldOut ? 'Sem estoque' : `Adicionar ${product.name} ao carrinho`}
-            className="flex h-9 w-9 items-center justify-center rounded-full bg-feira text-white shadow-sm transition hover:bg-feira-dark disabled:cursor-not-allowed disabled:bg-cafe/10 disabled:text-cafe/30"
+            className="flex h-9 w-9 items-center justify-center rounded-full bg-menta text-feira-dark shadow-sm transition hover:brightness-95 disabled:cursor-not-allowed disabled:bg-cafe/10 disabled:text-cafe/30"
           >
             <Plus className="h-5 w-5" />
           </button>
