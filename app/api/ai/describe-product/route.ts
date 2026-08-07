@@ -1,3 +1,4 @@
+import { openai } from '@ai-sdk/openai'
 import { generateText } from 'ai'
 import { NextResponse } from 'next/server'
 import { createServerSupabase } from '@/lib/supabase/server'
@@ -57,7 +58,7 @@ Com base ${imageBase64 ? 'na foto anexa e ' : ''}nesses dados, responda SOMENTE 
 
   try {
     const { text } = await generateText({
-      model: 'anthropic/claude-sonnet-5',
+      model: openai('gpt-5-mini'),
       messages: [
         {
           role: 'user',

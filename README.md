@@ -6,7 +6,7 @@ Sistema de compras online para uso **interno da empresa**:
 - **Funcionários** montam o carrinho, pagam via **PIX** (QR code fixo da empresa) e **enviam o comprovante** (PDF ou imagem).
 - O pedido fica no **histórico do usuário** e no **painel do admin**, que confere comprovante × valores no fim do mês (aprova/rejeita com observação; rejeição devolve o estoque).
 
-**Stack:** Next.js (App Router) · Supabase (Postgres + Auth + Storage) · Vercel AI Gateway (Claude com visão) · Tailwind CSS.
+**Stack:** Next.js (App Router) · Supabase (Postgres + Auth + Storage) · OpenAI (visão) · Tailwind CSS.
 
 ## Setup
 
@@ -29,7 +29,7 @@ Preencha:
 | `NEXT_PUBLIC_SUPABASE_URL` | Supabase → Settings → API |
 | `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Supabase → Settings → API |
 | `SUPABASE_SERVICE_ROLE_KEY` | Supabase → Settings → API (⚠️ secreta) |
-| `AI_GATEWAY_API_KEY` | [Vercel AI Gateway](https://vercel.com/docs/ai-gateway) |
+| `OPENAI_API_KEY` | [platform.openai.com/api-keys](https://platform.openai.com/api-keys) |
 
 ### 3. Primeiro admin
 
@@ -49,7 +49,7 @@ Entre com o admin criado, configure a **chave PIX** em *Admin → Config* e cada
 ## Deploy (Vercel)
 
 1. Importe o repositório na [Vercel](https://vercel.com/new).
-2. Adicione as 4 variáveis de ambiente acima (a `AI_GATEWAY_API_KEY` é criada automaticamente se você ativar o AI Gateway no projeto).
+2. Adicione as 4 variáveis de ambiente acima.
 3. Deploy. ✅
 
 ## Testes
