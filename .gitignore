@@ -1,0 +1,7 @@
+.code-review-graph/
+node_modules/
+.next/
+.env*
+!.env.example
+.vercel/
+*.tsbuildinfo
