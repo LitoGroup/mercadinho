@@ -18,7 +18,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   return (
     <div className="min-h-screen bg-creme">
       <header className="sticky top-0 z-10 bg-cafe text-white">
-        <div className="mx-auto flex max-w-5xl items-center justify-between gap-2 overflow-x-auto px-4 py-2.5">
+        <div className="mx-auto flex max-w-5xl items-center justify-between gap-2 px-4 py-2.5">
           <Link href="/admin/pedidos" className="whitespace-nowrap leading-none">
             <span className="block font-slab text-base leading-none text-banana">MERCADINHO DO LITO</span>
             <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-white/60">
@@ -39,7 +39,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
               href="/"
               className="whitespace-nowrap rounded-lg px-2.5 py-1.5 text-white/60 hover:bg-white/10"
             >
-              Ver loja
+              🏪 <span className="hidden sm:inline">Ver loja</span>
             </Link>
             <form action={signOut}>
               <button
