@@ -60,7 +60,7 @@ export function PhotoCapture({
           'Processando…'
         ) : (
           <span>
-            📷 Tirar foto do produto
+            Tirar foto do produto
           </span>
         )}
       </button>

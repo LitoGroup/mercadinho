@@ -1,7 +1,7 @@
+import { LogOut, Store } from 'lucide-react'
 import Link from 'next/link'
 import { signOut } from '@/app/actions/auth'
 import { AdminBottomNav } from '@/components/admin-bottom-nav'
-import { Awning } from '@/components/awning'
 import { requireAdmin } from '@/lib/auth'
 
 const NAV = [
@@ -18,10 +18,12 @@ export default async function AdminLayout({ children }: { children: React.ReactN
   return (
     <div className="min-h-screen bg-creme">
       <header className="sticky top-0 z-10 bg-cafe text-white">
-        <div className="mx-auto flex max-w-5xl items-center justify-between gap-2 px-4 py-2.5">
-          <Link href="/admin/pedidos" className="whitespace-nowrap leading-none">
-            <span className="block font-slab text-base leading-none text-banana">MERCADINHO DO LITO</span>
-            <span className="text-[10px] font-bold uppercase tracking-[0.3em] text-white/60">
+        <div className="mx-auto flex max-w-5xl items-center justify-between gap-2 px-4 py-3">
+          <Link href="/admin/pedidos" className="leading-tight">
+            <span className="block font-slab text-base font-semibold leading-none">
+              Mercadinho do Lito
+            </span>
+            <span className="text-[10px] font-medium uppercase tracking-[0.25em] text-white/50">
               Gerência
             </span>
           </Link>
@@ -30,28 +32,31 @@ export default async function AdminLayout({ children }: { children: React.ReactN
               <Link
                 key={item.href}
                 href={item.href}
-                className="hidden whitespace-nowrap rounded-lg px-2.5 py-1.5 font-medium hover:bg-white/10 sm:block"
+                className="hidden whitespace-nowrap rounded-lg px-2.5 py-1.5 font-medium text-white/70 transition hover:bg-white/10 hover:text-white sm:block"
               >
                 {item.label}
               </Link>
             ))}
             <Link
               href="/"
-              className="whitespace-nowrap rounded-lg px-2.5 py-1.5 text-white/60 hover:bg-white/10"
+              className="flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-white/50 transition hover:bg-white/10 hover:text-white"
+              title="Ver loja"
             >
-              🏪 <span className="hidden sm:inline">Ver loja</span>
+              <Store className="h-4 w-4" />
+              <span className="hidden sm:inline">Ver loja</span>
             </Link>
             <form action={signOut}>
               <button
                 type="submit"
-                className="rounded-lg px-2.5 py-1.5 text-white/60 hover:bg-white/10"
+                className="flex items-center rounded-lg p-2 text-white/50 transition hover:bg-white/10 hover:text-white"
+                title="Sair"
+                aria-label="Sair"
               >
-                Sair
+                <LogOut className="h-4 w-4" />
               </button>
             </form>
           </nav>
         </div>
-        <Awning stripe="#0E6B3A" />
       </header>
       <main className="mx-auto max-w-5xl px-4 py-6 pb-28 sm:pb-6">{children}</main>
       <AdminBottomNav />

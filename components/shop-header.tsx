@@ -1,8 +1,8 @@
 'use client'
 
+import { KeyRound, LogOut, ShoppingBasket } from 'lucide-react'
 import Link from 'next/link'
 import { useCart } from '@/components/cart-provider'
-import { Awning } from '@/components/awning'
 
 export function ShopHeader({
   userName,
@@ -17,39 +17,38 @@ export function ShopHeader({
   const firstName = userName.split(' ')[0]
 
   return (
-    <header className="sticky top-0 z-10 bg-[#FFFDF8] shadow-sm">
-      <div className="mx-auto flex max-w-5xl items-center justify-between gap-3 px-4 py-2.5">
-        <Link href="/" className="leading-none">
-          <span className="block font-slab text-lg leading-none text-feira-dark">MERCADINHO</span>
-          <span className="mt-0.5 inline-block -rotate-2 rounded bg-banana px-1.5 py-px font-slab text-[11px] leading-none text-cafe">
-            DO LITO
-          </span>
+    <header className="sticky top-0 z-10 border-b border-cafe/8 bg-white/95 backdrop-blur">
+      <div className="mx-auto flex max-w-5xl items-center justify-between gap-3 px-4 py-3">
+        <Link href="/" className="font-slab text-lg font-semibold leading-none text-feira-dark">
+          Mercadinho do Lito
         </Link>
 
         <nav className="flex items-center gap-1 text-sm sm:gap-2">
-          <span className="hidden text-cafe/50 md:inline">Oi, {firstName}!</span>
+          <span className="hidden text-cafe/40 md:inline">Olá, {firstName}</span>
           <Link
             href="/pedidos"
-            className="hidden rounded-lg px-2 py-1.5 font-medium text-cafe/70 hover:bg-creme sm:block"
+            className="hidden rounded-lg px-2.5 py-1.5 font-medium text-cafe/70 transition hover:bg-creme sm:block"
           >
             Meus pedidos
           </Link>
           {isAdmin && (
             <Link
               href="/admin/pedidos"
-              className="rounded-lg px-2 py-1.5 font-medium text-cafe/70 hover:bg-creme"
+              className="flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 font-medium text-cafe/70 transition hover:bg-creme"
+              title="Gerência"
             >
-              🔑 <span className="hidden sm:inline">Gerência</span>
+              <KeyRound className="h-4 w-4" />
+              <span className="hidden sm:inline">Gerência</span>
             </Link>
           )}
           <Link
             href="/carrinho"
-            className="relative hidden rounded-xl bg-tomate px-3 py-1.5 font-slab text-white shadow-[0_3px_0_0] shadow-tomate-dark transition hover:brightness-105 active:translate-y-0.5 active:shadow-none sm:block"
+            className="relative hidden items-center gap-2 rounded-lg bg-feira px-3.5 py-2 font-semibold text-white transition hover:bg-feira-dark sm:flex"
           >
-            🧺
-            <span className="ml-1 hidden sm:inline">Carrinho</span>
+            <ShoppingBasket className="h-4 w-4" />
+            Carrinho
             {count > 0 && (
-              <span className="absolute -right-2 -top-2 flex h-5 min-w-5 items-center justify-center rounded-full bg-banana px-1 text-xs font-bold text-cafe">
+              <span className="flex h-5 min-w-5 items-center justify-center rounded-full bg-white px-1 text-xs font-bold text-feira-dark">
                 {count}
               </span>
             )}
@@ -57,15 +56,15 @@ export function ShopHeader({
           <form action={signOutAction}>
             <button
               type="submit"
-              className="rounded-lg px-2 py-1.5 text-cafe/40 hover:bg-creme hover:text-cafe/70"
+              className="flex items-center rounded-lg p-2 text-cafe/35 transition hover:bg-creme hover:text-cafe/70"
               title={`Sair (${userName})`}
+              aria-label="Sair"
             >
-              Sair
+              <LogOut className="h-4 w-4" />
             </button>
           </form>
         </nav>
       </div>
-      <Awning />
     </header>
   )
 }

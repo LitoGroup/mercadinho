@@ -69,7 +69,7 @@ export default async function AdminOrderDetailPage({
             rel="noreferrer"
             className="inline-block rounded-lg bg-slate-800 px-4 py-2 text-sm font-semibold text-white hover:bg-slate-700"
           >
-            📄 Abrir PDF do comprovante
+            Abrir PDF do comprovante
           </a>
         ) : (
           <a href={receiptUrl} target="_blank" rel="noreferrer">

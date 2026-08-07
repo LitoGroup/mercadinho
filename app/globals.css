@@ -1,14 +1,14 @@
 @import "tailwindcss";
 
 @theme inline {
-  /* Paleta do Mercadinho do Lito */
-  --color-feira: #0e6b3a;
-  --color-feira-dark: #0a5029;
-  --color-tomate: #d93425;
-  --color-tomate-dark: #b3271a;
-  --color-banana: #f5b92e;
-  --color-creme: #fbf3e0;
-  --color-cafe: #33241a;
+  /* Paleta institucional do Mercadinho do Lito */
+  --color-feira: #166534; /* verde marca */
+  --color-feira-dark: #14532d;
+  --color-tomate: #dc2626; /* erros e alertas */
+  --color-tomate-dark: #b91c1c;
+  --color-banana: #f59e0b; /* avisos (estoque acabando) */
+  --color-creme: #f6f6f4; /* fundo neutro */
+  --color-cafe: #211d19; /* texto */
 
   --font-sans: var(--font-body), system-ui, sans-serif;
   --font-slab: var(--font-display), Georgia, serif;
@@ -21,7 +21,7 @@ body {
 }
 
 :focus-visible {
-  outline: 3px solid var(--color-banana);
+  outline: 2px solid var(--color-feira);
   outline-offset: 2px;
 }
 

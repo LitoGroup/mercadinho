@@ -1,3 +1,4 @@
+import { ShoppingBag } from 'lucide-react'
 import Link from 'next/link'
 import { formatCents } from '@/lib/format'
 import { createServerSupabase } from '@/lib/supabase/server'
@@ -49,7 +50,7 @@ export default async function AdminProductsPage() {
                             // eslint-disable-next-line @next/next/no-img-element
                             <img src={img} alt="" className="h-full w-full object-cover" />
                           ) : (
-                            '🛍️'
+                            <ShoppingBag className="h-4 w-4 text-cafe/25" />
                           )}
                         </div>
                         <div>

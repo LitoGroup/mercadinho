@@ -24,7 +24,7 @@ export default async function MyOrdersPage({
 
       {sucesso && (
         <p className="mb-4 rounded-xl bg-feira/15 p-4 text-sm font-medium text-feira-dark">
-          🎉 Pedido enviado! Ele será conferido pelo administrador.
+          Pedido enviado! Ele será conferido pelo administrador.
         </p>
       )}
 

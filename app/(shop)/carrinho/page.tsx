@@ -1,5 +1,6 @@
 'use client'
 
+import { ShoppingBasket } from 'lucide-react'
 import Link from 'next/link'
 import { useCart } from '@/components/cart-provider'
 import { formatCents } from '@/lib/format'
@@ -10,7 +11,7 @@ export default function CartPage() {
   if (items.length === 0) {
     return (
       <div className="py-16 text-center">
-        <p className="text-5xl">🧺</p>
+        <ShoppingBasket className="mx-auto h-12 w-12 text-cafe/20" strokeWidth={1.5} />
         <p className="mt-3 text-gray-500">Seu carrinho está vazio.</p>
         <Link
           href="/"
@@ -36,7 +37,7 @@ export default function CartPage() {
                 // eslint-disable-next-line @next/next/no-img-element
                 <img src={item.imageUrl} alt={item.name} className="h-full w-full object-cover" />
               ) : (
-                <span className="text-2xl">🛍️</span>
+                <ShoppingBasket className="h-6 w-6 text-cafe/20" />
               )}
             </div>
             <div className="min-w-0 flex-1">

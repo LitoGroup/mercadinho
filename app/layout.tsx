@@ -1,11 +1,11 @@
 import type { Metadata, Viewport } from 'next'
-import { Alfa_Slab_One, Archivo } from 'next/font/google'
+import { Archivo, Fraunces } from 'next/font/google'
 import './globals.css'
 
-const display = Alfa_Slab_One({
-  weight: '400',
+const display = Fraunces({
   subsets: ['latin'],
   variable: '--font-display',
+  axes: ['opsz'],
 })
 
 const body = Archivo({

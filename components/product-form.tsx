@@ -110,7 +110,7 @@ export function ProductForm({
           onClick={() => setScanning(true)}
           className="self-end rounded-lg border border-feira/40 px-3 py-2 text-feira-dark hover:bg-feira/10"
         >
-          📷 Escanear
+          Escanear
         </button>
       </div>
 
@@ -118,9 +118,9 @@ export function ProductForm({
         type="button"
         onClick={generateWithAI}
         disabled={aiBusy || (!photoBlob && !ean)}
-        className="w-full rounded-xl border-2 border-violet-200 bg-violet-50 py-2.5 font-semibold text-violet-700 hover:bg-violet-100 disabled:cursor-not-allowed disabled:opacity-50"
+        className="w-full rounded-lg border border-feira/30 bg-feira/5 py-2.5 font-semibold text-feira-dark transition hover:bg-feira/10 disabled:cursor-not-allowed disabled:opacity-50"
       >
-        {aiBusy ? '✨ Gerando descrição…' : '✨ Gerar nome e descrição com IA'}
+        {aiBusy ? 'Gerando descrição…' : 'Gerar nome e descrição com IA'}
       </button>
       {aiError && <p className="rounded-lg bg-amber-50 p-3 text-sm text-amber-800">{aiError}</p>}
 

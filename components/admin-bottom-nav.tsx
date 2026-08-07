@@ -1,14 +1,15 @@
 'use client'
 
+import { ClipboardList, Package, Settings, ShoppingBag, Users } from 'lucide-react'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
 const TABS = [
-  { href: '/admin/pedidos', icon: '🧾', label: 'Pedidos' },
-  { href: '/admin/produtos', icon: '🥫', label: 'Produtos' },
-  { href: '/admin/estoque', icon: '📦', label: 'Estoque' },
-  { href: '/admin/usuarios', icon: '👥', label: 'Usuários' },
-  { href: '/admin/config', icon: '⚙️', label: 'Config' },
+  { href: '/admin/pedidos', icon: ClipboardList, label: 'Pedidos' },
+  { href: '/admin/produtos', icon: ShoppingBag, label: 'Produtos' },
+  { href: '/admin/estoque', icon: Package, label: 'Estoque' },
+  { href: '/admin/usuarios', icon: Users, label: 'Usuários' },
+  { href: '/admin/config', icon: Settings, label: 'Config' },
 ]
 
 export function AdminBottomNav() {
@@ -22,21 +23,17 @@ export function AdminBottomNav() {
       <div className="grid grid-cols-5">
         {TABS.map((tab) => {
           const active = pathname.startsWith(tab.href)
+          const Icon = tab.icon
           return (
             <Link
               key={tab.href}
               href={tab.href}
-              className={`relative flex flex-col items-center gap-0.5 py-2 text-[11px] font-bold ${
-                active ? 'text-banana' : 'text-white/40'
+              className={`flex flex-col items-center gap-1 py-2.5 text-[10px] font-medium ${
+                active ? 'text-white' : 'text-white/35'
               }`}
             >
-              <span className={`text-2xl leading-none ${active ? '' : 'grayscale opacity-70'}`}>
-                {tab.icon}
-              </span>
+              <Icon className="h-5 w-5" strokeWidth={active ? 2.2 : 1.8} />
               {tab.label}
-              {active && (
-                <span className="absolute inset-x-6 top-0 h-1 rounded-b-full bg-banana" />
-              )}
             </Link>
           )
         })}
