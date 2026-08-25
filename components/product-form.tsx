@@ -182,17 +182,29 @@ export function ProductForm({
         </div>
         <div>
           <label htmlFor="stock" className="mb-1 block text-sm font-medium text-texto/80">
-            Estoque *
+            Estoque {product ? '' : '*'}
           </label>
-          <input
-            id="stock"
-            name="stock"
-            required
-            type="number"
-            min={0}
-            defaultValue={product?.stock ?? 0}
-            className={inputCls}
-          />
+          {product ? (
+            // Na edição o estoque NÃO é gravado por aqui (vendas baixam o estoque
+            // no banco; regravar o valor da tela apagaria essas vendas). Ajuste
+            // fica na tela de Estoque, que registra histórico.
+            <div className={`${inputCls} flex items-center justify-between bg-cinza-claro/60`}>
+              <span className="font-medium text-texto">{product.stock}</span>
+              <a href="/admin/estoque" className="text-sm font-medium text-azul hover:underline">
+                Ajustar no Estoque
+              </a>
+            </div>
+          ) : (
+            <input
+              id="stock"
+              name="stock"
+              required
+              type="number"
+              min={0}
+              defaultValue={0}
+              className={inputCls}
+            />
+          )}
         </div>
       </div>
 

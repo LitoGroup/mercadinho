@@ -51,6 +51,10 @@ export async function placeOrder(
 
   revalidatePath('/')
   revalidatePath('/pedidos')
+  // A venda baixou o estoque no banco; avisa também as telas do admin, senão
+  // elas continuam mostrando o estoque de antes da compra.
+  revalidatePath('/admin/estoque')
+  revalidatePath('/admin/produtos')
   return { ok: true }
 }
 
