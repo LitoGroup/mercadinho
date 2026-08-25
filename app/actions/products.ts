@@ -97,18 +97,20 @@ export async function saveProduct(
     category,
     ean,
     price_cents: priceCents,
-    stock,
     active,
     ...(imagePath ? { image_path: imagePath } : {}),
   }
 
   if (id) {
+    // NÃO gravar `stock` aqui: entre abrir e salvar a edição, vendas podem ter
+    // baixado o estoque. Reenviar o valor da tela sobrescreveria essas vendas.
+    // Estoque só se ajusta na tela de Estoque (adjustStock/setStock, com histórico).
     const { error } = await supabase.from('products').update(fields).eq('id', id)
     if (error) return { error: 'Não foi possível salvar o produto.' }
   } else {
     const { error } = await supabase
       .from('products')
-      .insert({ ...fields, created_by: profile.id })
+      .insert({ ...fields, stock, created_by: profile.id })
     if (error) return { error: 'Não foi possível criar o produto.' }
   }
 
