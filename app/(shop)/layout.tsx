@@ -1,4 +1,5 @@
 import { signOut } from '@/app/actions/auth'
+import { AutoRefresh } from '@/components/auto-refresh'
 import { BottomNav } from '@/components/bottom-nav'
 import { CartProvider } from '@/components/cart-provider'
 import { ShopHeader } from '@/components/shop-header'
@@ -10,6 +11,7 @@ export default async function ShopLayout({ children }: { children: React.ReactNo
   return (
     <CartProvider>
       <div className="min-h-screen bg-cinza-claro">
+        <AutoRefresh />
         <ShopHeader
           userName={profile.name}
           isAdmin={profile.role === 'admin'}

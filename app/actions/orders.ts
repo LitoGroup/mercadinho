@@ -51,6 +51,9 @@ export async function placeOrder(
 
   revalidatePath('/')
   revalidatePath('/pedidos')
+  revalidatePath('/admin/produtos')
+  revalidatePath('/admin/estoque')
+  revalidatePath('/admin/pedidos')
   return { ok: true }
 }
 
@@ -71,7 +74,10 @@ export async function reviewOrder(
   if (error) {
     return { error: error.message.includes('conferido') ? 'Este pedido já foi conferido.' : 'Não foi possível salvar a conferência.' }
   }
+  revalidatePath('/')
   revalidatePath('/admin/pedidos')
+  revalidatePath('/admin/estoque')
+  revalidatePath('/admin/produtos')
   revalidatePath(`/admin/pedidos/${orderId}`)
   return {}
 }
