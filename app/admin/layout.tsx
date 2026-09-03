@@ -2,6 +2,7 @@ import { LogOut, Store } from 'lucide-react'
 import Link from 'next/link'
 import { signOut } from '@/app/actions/auth'
 import { AdminBottomNav } from '@/components/admin-bottom-nav'
+import { AutoRefresh } from '@/components/auto-refresh'
 import { requireAdmin } from '@/lib/auth'
 
 const NAV = [
@@ -17,6 +18,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
 
   return (
     <div className="min-h-screen bg-cinza-claro">
+      <AutoRefresh />
       <header className="sticky top-0 z-10 bg-azul text-white">
         <div className="mx-auto flex max-w-5xl items-center justify-between gap-2 px-4 py-3">
           <Link href="/admin/pedidos" className="flex items-center gap-2.5">
