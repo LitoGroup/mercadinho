@@ -1,4 +1,4 @@
-import { LogOut, Store } from 'lucide-react'
+import { KeyRound, LogOut, Store } from 'lucide-react'
 import Link from 'next/link'
 import { signOut } from '@/app/actions/auth'
 import { AdminBottomNav } from '@/components/admin-bottom-nav'
@@ -40,6 +40,17 @@ export default async function AdminLayout({ children }: { children: React.ReactN
                 {item.label}
               </Link>
             ))}
+            {/* A gerencia nao tinha acesso a troca de senha: o link existia so
+                no header da loja, escondido no celular, e em Meus pedidos.
+                Aqui fica visivel em qualquer tamanho de tela. */}
+            <Link
+              href="/senha"
+              className="flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-white/50 transition hover:bg-white/10 hover:text-white"
+              title="Trocar senha"
+            >
+              <KeyRound className="h-4 w-4" />
+              <span className="hidden sm:inline">Trocar senha</span>
+            </Link>
             <Link
               href="/"
               className="flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-white/50 transition hover:bg-white/10 hover:text-white"
