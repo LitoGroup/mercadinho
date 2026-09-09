@@ -3,31 +3,56 @@
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
 
-// As telas são renderizadas no servidor: uma compra feita por outra pessoa
-// não muda o que já está desenhado na tela de quem está com o app aberto.
+// As paginas sao renderizadas no servidor: uma compra feita por outra pessoa
+// nao muda o que ja esta desenhado na tela de quem esta com o app aberto.
 //
-// Na gerência isso faz o admin ver o saldo de quando abriu a aba Produtos, e
-// parecer que a baixa não aconteceu — embora o estoque já tenha saído no
-// banco. Na loja, faz o comprador ver um produto que já esgotou e só descobrir
-// no fechamento.
+// Dois gatilhos, porque um so nao basta:
 //
-// Sempre que o app volta ao primeiro plano, pedimos ao Next para renderizar a
-// rota atual de novo, com dados frescos. O estado do carrinho não se perde:
-// ele vive no CartProvider, que continua montado.
-export function AutoRefresh() {
+// - Voltar ao primeiro plano (trocar de aba, sair do WhatsApp, desbloquear o
+//   celular). Resolve o caso de quem deixa o app aberto e volta depois.
+// - Um intervalo, quando `intervalMs` e passado. Necessario porque a tela que
+//   o admin fica OLHANDO nunca recebe os eventos acima — foi exatamente o que
+//   deixou o estoque parecendo intacto depois de uma compra, ate a conferencia
+//   revalidar a pagina e os numeros cairem de uma vez.
+//
+// O intervalo fica so na gerencia, onde ha poucos usuarios e a tela precisa
+// ser confiavel. Na loja, com todos os alunos de app aberto, um intervalo
+// multiplicaria as requisicoes sem necessidade: para o comprador, atualizar ao
+// voltar ao primeiro plano e ao navegar ja basta.
+//
+// O carrinho nao se perde: vive no CartProvider, que continua montado.
+export function AutoRefresh({ intervalMs }: { intervalMs?: number }) {
   const router = useRouter()
 
   useEffect(() => {
-    const refresh = () => {
-      if (document.visibilityState === 'visible') router.refresh()
+    const isVisible = () => document.visibilityState === 'visible'
+
+    const onForeground = () => {
+      if (isVisible()) router.refresh()
     }
-    document.addEventListener('visibilitychange', refresh)
-    window.addEventListener('focus', refresh)
+
+    document.addEventListener('visibilitychange', onForeground)
+    window.addEventListener('focus', onForeground)
+
+    let timer: ReturnType<typeof setInterval> | undefined
+    if (intervalMs) {
+      timer = setInterval(() => {
+        // Nao atualiza enquanto alguem digita: a busca e o campo de estoque
+        // disputariam com o re-render no meio da digitacao.
+        const el = document.activeElement
+        const typing =
+          el instanceof HTMLElement &&
+          (el.tagName === 'INPUT' || el.tagName === 'TEXTAREA' || el.isContentEditable)
+        if (isVisible() && !typing) router.refresh()
+      }, intervalMs)
+    }
+
     return () => {
-      document.removeEventListener('visibilitychange', refresh)
-      window.removeEventListener('focus', refresh)
+      document.removeEventListener('visibilitychange', onForeground)
+      window.removeEventListener('focus', onForeground)
+      if (timer) clearInterval(timer)
     }
-  }, [router])
+  }, [router, intervalMs])
 
   return null
 }
