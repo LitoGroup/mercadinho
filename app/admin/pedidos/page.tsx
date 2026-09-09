@@ -1,16 +1,22 @@
 import Link from 'next/link'
 import { OrderStatusBadge } from '@/components/order-status-badge'
-import { formatCents, formatDate } from '@/lib/format'
+import { currentYearMonthBR, formatCents, formatDate, startOfDayBR } from '@/lib/format'
 import { createServerSupabase } from '@/lib/supabase/server'
 import type { Order, OrderStatus } from '@/lib/types'
 
 function monthOptions(): { value: string; label: string }[] {
   const options: { value: string; label: string }[] = []
-  const now = new Date()
+  // Mes corrente pelo horario de Brasilia: no servidor em UTC, entre a meia-
+  // noite e as 3h o mes vira antes de virar no Brasil.
+  const { year, month } = currentYearMonthBR()
   for (let i = 0; i < 12; i++) {
-    const d = new Date(now.getFullYear(), now.getMonth() - i, 1)
-    const value = `${d.getFullYear()}-${String(d.getMonth() + 1).padStart(2, '0')}`
-    const label = d.toLocaleDateString('pt-BR', { month: 'long', year: 'numeric' })
+    const d = new Date(Date.UTC(year, month - 1 - i, 1))
+    const value = `${d.getUTCFullYear()}-${String(d.getUTCMonth() + 1).padStart(2, '0')}`
+    const label = d.toLocaleDateString('pt-BR', {
+      timeZone: 'UTC',
+      month: 'long',
+      year: 'numeric',
+    })
     options.push({ value, label: label.charAt(0).toUpperCase() + label.slice(1) })
   }
   return options
@@ -33,12 +39,12 @@ export default async function AdminOrdersPage({
   let end: string
   if (dia) {
     const [y, m, d] = dia.split('-').map(Number)
-    start = new Date(y, m - 1, d).toISOString()
-    end = new Date(y, m - 1, d + 1).toISOString()
+    start = startOfDayBR(y, m, d)
+    end = startOfDayBR(y, m, d + 1)
   } else {
     const [year, month] = mes.split('-').map(Number)
-    start = new Date(year, month - 1, 1).toISOString()
-    end = new Date(year, month, 1).toISOString()
+    start = startOfDayBR(year, month, 1)
+    end = startOfDayBR(year, month + 1, 1)
   }
 
   const supabase = await createServerSupabase()
