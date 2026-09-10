@@ -1,6 +1,7 @@
 'use client'
 
 import { Plus } from 'lucide-react'
+import Image from 'next/image'
 import { useCart } from '@/components/cart-provider'
 import { formatCents } from '@/lib/format'
 
@@ -23,11 +24,13 @@ export function ProductCard({ product }: { product: CatalogProduct }) {
     <div className="group flex flex-col overflow-hidden rounded-xl border border-texto/8 bg-white transition hover:border-texto/15 hover:shadow-md">
       <div className="relative aspect-square overflow-hidden bg-white">
         {product.imageUrl ? (
-          // eslint-disable-next-line @next/next/no-img-element
-          <img
+          <Image
             src={product.imageUrl}
             alt={product.name}
-            className="h-full w-full object-cover transition duration-300 group-hover:scale-[1.03]"
+            fill
+            // Acompanha a grade: 2 colunas no celular, 3 em sm, 4 em md.
+            sizes="(max-width: 639px) 50vw, (max-width: 767px) 33vw, 25vw"
+            className="object-cover transition duration-300 group-hover:scale-[1.03]"
           />
         ) : (
           <div className="flex h-full items-center justify-center bg-cinza-claro text-texto/20">
