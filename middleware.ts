@@ -44,6 +44,16 @@ export async function middleware(request: NextRequest) {
   return response
 }
 
+// manifest.webmanifest e sw.js ficam fora do matcher de proposito.
+//
+// O navegador busca o manifest SEM cookies (a menos que se declare
+// crossorigin="use-credentials"), entao o middleware o redirecionava para
+// /login e o Chrome recebia HTML no lugar do manifest — o app nunca era
+// considerado instalavel. O service worker precisa do mesmo tratamento para
+// ser servido na raiz do escopo.
+//
+// Nenhum dos dois expoe dado sensivel: sao nome, cores, icones e um handler
+// de fetch vazio.
 export const config = {
-  matcher: ['/((?!_next/static|_next/image|favicon.ico|api/|.*\\.(?:svg|png|jpg|jpeg|webp|ico)$).*)'],
+  matcher: ['/((?!_next/static|_next/image|favicon.ico|manifest.webmanifest|sw\\.js|api/|.*\\.(?:svg|png|jpg|jpeg|webp|ico)$).*)'],
 }
