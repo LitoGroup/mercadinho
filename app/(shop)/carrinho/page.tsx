@@ -1,6 +1,7 @@
 'use client'
 
 import { ShoppingBasket } from 'lucide-react'
+import Image from 'next/image'
 import Link from 'next/link'
 import { useCart } from '@/components/cart-provider'
 import { formatCents } from '@/lib/format'
@@ -34,8 +35,14 @@ export default function CartPage() {
           >
             <div className="flex h-14 w-14 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-cinza-claro">
               {item.imageUrl ? (
-                // eslint-disable-next-line @next/next/no-img-element
-                <img src={item.imageUrl} alt={item.name} className="h-full w-full object-cover" />
+                <Image
+                  src={item.imageUrl}
+                  alt={item.name}
+                  width={56}
+                  height={56}
+                  sizes="56px"
+                  className="h-full w-full object-cover"
+                />
               ) : (
                 <ShoppingBasket className="h-6 w-6 text-texto/20" />
               )}

@@ -1,4 +1,5 @@
 import { ShoppingBag } from 'lucide-react'
+import Image from 'next/image'
 import Link from 'next/link'
 import { formatCents } from '@/lib/format'
 import { createServerSupabase } from '@/lib/supabase/server'
@@ -42,8 +43,14 @@ export default async function AdminProductsPage() {
                   >
                     <div className="flex h-12 w-12 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-cinza-claro">
                       {img ? (
-                        // eslint-disable-next-line @next/next/no-img-element
-                        <img src={img} alt="" className="h-full w-full object-cover" />
+                        <Image
+                          src={img}
+                          alt=""
+                          width={48}
+                          height={48}
+                          sizes="48px"
+                          className="h-full w-full object-cover"
+                        />
                       ) : (
                         <ShoppingBag className="h-5 w-5 text-texto/25" />
                       )}
@@ -92,8 +99,14 @@ export default async function AdminProductsPage() {
                       <div className="flex items-center gap-3">
                         <div className="flex h-10 w-10 shrink-0 items-center justify-center overflow-hidden rounded-lg bg-cinza-claro">
                           {img ? (
-                            // eslint-disable-next-line @next/next/no-img-element
-                            <img src={img} alt="" className="h-full w-full object-cover" />
+                            <Image
+                              src={img}
+                              alt=""
+                              width={40}
+                              height={40}
+                              sizes="40px"
+                              className="h-full w-full object-cover"
+                            />
                           ) : (
                             <ShoppingBag className="h-4 w-4 text-texto/25" />
                           )}
