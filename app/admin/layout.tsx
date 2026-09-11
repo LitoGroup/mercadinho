@@ -1,14 +1,16 @@
-import { KeyRound, LogOut, Store } from 'lucide-react'
 import Link from 'next/link'
 import { signOut } from '@/app/actions/auth'
 import { AdminBottomNav } from '@/components/admin-bottom-nav'
+import { AdminHeaderActions } from '@/components/admin-header-actions'
 import { AutoRefresh } from '@/components/auto-refresh'
 import { requireAdmin } from '@/lib/auth'
 
+// No desktop cabe a navegação inteira no topo. No celular ela vive na barra
+// inferior (três abas) e no menu do cabeçalho.
 const NAV = [
   { href: '/admin/pedidos', label: 'Pedidos' },
-  { href: '/admin/produtos', label: 'Produtos' },
   { href: '/admin/estoque', label: 'Estoque' },
+  { href: '/admin/produtos', label: 'Produtos' },
   { href: '/admin/usuarios', label: 'Usuários' },
   { href: '/admin/config', label: 'Config' },
 ]
@@ -20,7 +22,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
     <div className="min-h-screen bg-cinza-claro">
       <AutoRefresh intervalMs={5000} />
       <header className="sticky top-0 z-10 bg-azul text-white">
-        <div className="mx-auto flex max-w-5xl items-center justify-between gap-2 px-4 py-3">
+        <div className="mx-auto flex max-w-5xl items-center justify-between gap-2 px-4 py-2">
           <Link href="/admin/pedidos" className="flex items-center gap-2.5">
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src="/logo-lito-branco.png" alt="Lito Aviation Academy" className="h-8 w-auto" />
@@ -40,35 +42,7 @@ export default async function AdminLayout({ children }: { children: React.ReactN
                 {item.label}
               </Link>
             ))}
-            {/* A gerencia nao tinha acesso a troca de senha: o link existia so
-                no header da loja, escondido no celular, e em Meus pedidos.
-                Aqui fica visivel em qualquer tamanho de tela. */}
-            <Link
-              href="/senha"
-              className="flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-white/50 transition hover:bg-white/10 hover:text-white"
-              title="Trocar senha"
-            >
-              <KeyRound className="h-4 w-4" />
-              <span className="hidden sm:inline">Trocar senha</span>
-            </Link>
-            <Link
-              href="/"
-              className="flex items-center gap-1.5 rounded-lg px-2.5 py-1.5 text-white/50 transition hover:bg-white/10 hover:text-white"
-              title="Ver loja"
-            >
-              <Store className="h-4 w-4" />
-              <span className="hidden sm:inline">Ver loja</span>
-            </Link>
-            <form action={signOut}>
-              <button
-                type="submit"
-                className="flex items-center rounded-lg p-2 text-white/50 transition hover:bg-white/10 hover:text-white"
-                title="Sair"
-                aria-label="Sair"
-              >
-                <LogOut className="h-4 w-4" />
-              </button>
-            </form>
+            <AdminHeaderActions signOutAction={signOut} />
           </nav>
         </div>
       </header>

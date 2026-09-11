@@ -16,15 +16,27 @@ interface Movement {
 export default async function AdminStockPage({
   searchParams,
 }: {
-  searchParams: Promise<{ q?: string }>
+  searchParams: Promise<{ q?: string; situacao?: string }>
 }) {
-  const { q } = await searchParams
+  const { q, situacao } = await searchParams
   const supabase = await createServerSupabase()
 
-  let query = supabase.from('products').select('*').order('stock').order('name')
+  // Ordem alfabética, não por saldo. Ordenar por saldo fazia a linha pular de
+  // lugar assim que você somava 1 — a lista fugia do dedo no meio da reposição.
+  let query = supabase.from('products').select('*').order('name')
   if (q) query = query.ilike('name', `%${q}%`)
   const { data } = await query
-  const products = (data ?? []) as Product[]
+  const todos = (data ?? []) as Product[]
+
+  // 43 dos 98 produtos ativos estão zerados e 51 acabando: a tela abre pelo
+  // que precisa de reposição, não por uma lista alfabética de tudo.
+  const aba = situacao === 'acabando' || situacao === 'todos' ? situacao : 'zerados'
+  const products =
+    aba === 'todos'
+      ? todos
+      : aba === 'zerados'
+        ? todos.filter((p) => p.active && p.stock === 0)
+        : todos.filter((p) => p.active && p.stock > 0 && p.stock <= 5)
 
   const { data: movementsData, error: movementsError } = await supabase
     .from('stock_movements')
@@ -33,10 +45,12 @@ export default async function AdminStockPage({
     .limit(15)
   const movements = (movementsData ?? []) as unknown as Movement[]
 
-  const totalItens = products.reduce((sum, p) => sum + p.stock, 0)
-  const valorEstoque = products.reduce((sum, p) => sum + p.stock * p.price_cents, 0)
-  const acabando = products.filter((p) => p.active && p.stock > 0 && p.stock <= 5).length
-  const zerados = products.filter((p) => p.active && p.stock === 0).length
+  const totalItens = todos.reduce((sum, p) => sum + p.stock, 0)
+  const valorEstoque = todos.reduce((sum, p) => sum + p.stock * p.price_cents, 0)
+  const acabando = todos.filter((p) => p.active && p.stock > 0 && p.stock <= 5).length
+  const zerados = todos.filter((p) => p.active && p.stock === 0).length
+  const ativos = todos.filter((p) => p.active).length
+  const buscaAtual = q ? `&q=${encodeURIComponent(q)}` : ''
 
   return (
     <div>
@@ -61,19 +75,45 @@ export default async function AdminStockPage({
         </div>
       </div>
 
-      <form className="mb-4">
+      <form className="mb-2.5">
+        <input type="hidden" name="situacao" value={aba} />
         <input
           type="search"
           name="q"
           defaultValue={q ?? ''}
           placeholder="Buscar produto…"
-          className="w-full rounded-xl border border-texto/10 bg-white px-4 py-2.5 shadow-sm focus:border-azul focus:outline-none sm:max-w-xs"
+          aria-label="Buscar produto"
+          className="min-h-12 w-full rounded-xl border border-texto/10 bg-white px-4 shadow-sm focus:border-azul focus:outline-none sm:max-w-xs"
         />
       </form>
 
+      <div className="mb-3 flex gap-1.5">
+        <AbaEstoque
+          href={`/admin/estoque?situacao=zerados${buscaAtual}`}
+          ativo={aba === 'zerados'}
+          rotulo={`Zerados ${zerados}`}
+        />
+        <AbaEstoque
+          href={`/admin/estoque?situacao=acabando${buscaAtual}`}
+          ativo={aba === 'acabando'}
+          rotulo={`Acabando ${acabando}`}
+        />
+        <AbaEstoque
+          href={`/admin/estoque?situacao=todos${buscaAtual}`}
+          ativo={aba === 'todos'}
+          rotulo={`Todos ${ativos}`}
+        />
+      </div>
+
       {products.length === 0 ? (
         <p className="py-16 text-center text-texto/50">
-          {q ? 'Nenhum produto encontrado.' : 'Nenhum produto cadastrado ainda.'}
+          {q
+            ? 'Nenhum produto encontrado nessa busca.'
+            : aba === 'zerados'
+              ? 'Nenhum produto zerado. Estoque em dia.'
+              : aba === 'acabando'
+                ? 'Nenhum produto acabando.'
+                : 'Nenhum produto cadastrado ainda.'}
         </p>
       ) : (
         <>
@@ -191,5 +231,21 @@ export default async function AdminStockPage({
         </ul>
       )}
     </div>
+  )
+}
+
+function AbaEstoque({ href, ativo, rotulo }: { href: string; ativo: boolean; rotulo: string }) {
+  return (
+    <Link
+      href={href}
+      aria-current={ativo ? 'page' : undefined}
+      className={`flex min-h-11 flex-1 items-center justify-center rounded-xl border px-2 text-sm ${
+        ativo
+          ? 'border-azul bg-azul font-bold text-white'
+          : 'border-texto/10 bg-white font-medium text-texto/60'
+      }`}
+    >
+      {rotulo}
+    </Link>
   )
 }
