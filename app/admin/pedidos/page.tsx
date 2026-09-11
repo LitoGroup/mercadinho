@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { OrderStatusBadge } from '@/components/order-status-badge'
-import { currentYearMonthBR, formatCents, formatDate, startOfDayBR } from '@/lib/format'
+import { OrderReviewCard } from '@/components/order-review-card'
+import { currentYearMonthBR, formatCents, formatDate, startOfDayBR, todayBR } from '@/lib/format'
 import { createServerSupabase } from '@/lib/supabase/server'
 import type { Order, OrderStatus } from '@/lib/types'
 
@@ -50,7 +51,7 @@ export default async function AdminOrdersPage({
   const supabase = await createServerSupabase()
   let query = supabase
     .from('orders')
-    .select('*, profiles:user_id(name)')
+    .select('*, profiles:user_id(name), order_items(product_name, quantity, unit_price_cents)')
     .gte('created_at', start)
     .lt('created_at', end)
     .order('created_at', { ascending: false })
@@ -59,13 +60,52 @@ export default async function AdminOrdersPage({
   const { data } = await query
   const orders = (data ?? []) as Order[]
   const total = orders.reduce((sum, o) => sum + o.total_cents, 0)
-  const pendentes = orders.filter((o) => o.status === 'pending').length
+  const aguardando = orders.filter((o) => o.status === 'pending')
+  const conferidos = orders.filter((o) => o.status !== 'pending')
+  const pendentes = aguardando.length
+  const hoje = todayBR()
+  const linkBase = `/admin/pedidos?mes=${mes}`
 
   return (
     <div>
       <h1 className="mb-4 text-xl font-bold text-texto">Conferência de pedidos</h1>
 
-      <form className="mb-4 grid grid-cols-2 items-end gap-3 sm:flex sm:flex-wrap">
+      {/* Celular: o mês num campo só, e três atalhos. Aguardando primeiro,
+          porque é o trabalho do dia. */}
+      <div className="mb-4 sm:hidden">
+        <form className="flex gap-2">
+          <select
+            name="mes"
+            defaultValue={mes}
+            aria-label="Mês"
+            className="min-h-12 flex-1 rounded-xl border border-texto/12 bg-white px-3 font-medium"
+          >
+            {months.map((m) => (
+              <option key={m.value} value={m.value}>
+                {m.label}
+              </option>
+            ))}
+          </select>
+          <button
+            type="submit"
+            className="min-h-12 rounded-xl bg-azul px-5 font-semibold text-white"
+          >
+            Ver
+          </button>
+        </form>
+
+        <div className="mt-2 flex gap-1.5">
+          <FiltroChip
+            href={`${linkBase}&status=pending`}
+            ativo={status === 'pending' && !dia}
+            rotulo={pendentes > 0 ? `Aguardando ${pendentes}` : 'Aguardando'}
+          />
+          <FiltroChip href={`${linkBase}&dia=${hoje}`} ativo={dia === hoje} rotulo="Hoje" />
+          <FiltroChip href={linkBase} ativo={!status && !dia} rotulo="Todos" />
+        </div>
+      </div>
+
+      <form className="mb-4 hidden grid-cols-2 items-end gap-3 sm:flex sm:flex-wrap">
         <div>
           <label htmlFor="mes" className="mb-1 block text-xs font-medium text-texto/50">
             Mês
@@ -152,33 +192,62 @@ export default async function AdminOrdersPage({
         <p className="py-16 text-center text-texto/50">Nenhum pedido nesse período.</p>
       ) : (
         <>
-          {/* Celular: cada pedido é um cartão tocável, sem rolagem lateral */}
-          <ul className="space-y-3 sm:hidden">
-            {orders.map((o) => (
-              <li key={o.id}>
-                <Link
-                  href={`/admin/pedidos/${o.id}`}
-                  className="block rounded-xl border border-texto/8 bg-white p-4 shadow-sm active:bg-cinza-claro"
-                >
-                  <div className="flex items-start justify-between gap-3">
-                    <div className="min-w-0">
-                      <p className="truncate font-semibold text-texto">
-                        {o.profiles?.name ?? '—'}
-                      </p>
-                      <p className="text-xs text-texto/50">{formatDate(o.created_at)}</p>
-                    </div>
-                    <p className="shrink-0 font-bold text-azul">
-                      {formatCents(o.total_cents)}
-                    </p>
-                  </div>
-                  <div className="mt-3 flex items-center justify-between gap-2">
-                    <OrderStatusBadge status={o.status} />
-                    <span className="text-sm font-semibold text-azul">Conferir →</span>
-                  </div>
-                </Link>
-              </li>
-            ))}
-          </ul>
+          {/* Celular: os que aguardam vêm inteiros, com Aprovar e Rejeitar no
+              próprio cartão. Os já conferidos viram linha, que é o que são. */}
+          <div className="sm:hidden">
+            {aguardando.length > 0 && (
+              <ul className="space-y-3">
+                {aguardando.map((o) => (
+                  <li key={o.id}>
+                    <OrderReviewCard
+                      orderId={o.id}
+                      clientName={o.profiles?.name ?? '—'}
+                      createdAt={o.created_at}
+                      totalCents={o.total_cents}
+                      items={o.order_items ?? []}
+                    />
+                  </li>
+                ))}
+              </ul>
+            )}
+
+            {conferidos.length > 0 && (
+              <div className={aguardando.length > 0 ? 'mt-6' : ''}>
+                <p className="mb-2.5 text-[13px] font-bold tracking-wide text-texto/45">
+                  CONFERIDOS
+                </p>
+                <ul className="space-y-2">
+                  {conferidos.map((o) => (
+                    <li key={o.id}>
+                      <Link
+                        href={`/admin/pedidos/${o.id}`}
+                        className="flex items-center gap-3 rounded-xl border border-texto/8 bg-white px-3.5 py-3 shadow-sm active:bg-cinza-claro"
+                      >
+                        <span
+                          aria-hidden="true"
+                          className={`h-2 w-2 shrink-0 rounded-full ${
+                            o.status === 'approved' ? 'bg-verde' : 'bg-erro'
+                          }`}
+                        />
+                        <span className="min-w-0 flex-1">
+                          <span className="block truncate font-semibold text-texto">
+                            {o.profiles?.name ?? '—'}
+                          </span>
+                          <span className="block text-xs text-texto/45">
+                            {formatDate(o.created_at)} ·{' '}
+                            {o.status === 'approved' ? 'aprovado' : 'rejeitado'}
+                          </span>
+                        </span>
+                        <span className="shrink-0 font-bold text-azul">
+                          {formatCents(o.total_cents)}
+                        </span>
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            )}
+          </div>
 
           {/* Desktop: tabela */}
           <div className="hidden rounded-xl border border-texto/8 bg-white shadow-sm sm:block">
@@ -217,5 +286,21 @@ export default async function AdminOrdersPage({
         </>
       )}
     </div>
+  )
+}
+
+function FiltroChip({ href, ativo, rotulo }: { href: string; ativo: boolean; rotulo: string }) {
+  return (
+    <Link
+      href={href}
+      aria-current={ativo ? 'page' : undefined}
+      className={`flex min-h-11 flex-1 items-center justify-center rounded-xl border px-2 text-sm ${
+        ativo
+          ? 'border-azul bg-azul font-bold text-white'
+          : 'border-texto/10 bg-white font-medium text-texto/60'
+      }`}
+    >
+      {rotulo}
+    </Link>
   )
 }

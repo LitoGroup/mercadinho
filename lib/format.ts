@@ -45,3 +45,13 @@ export function currentYearMonthBR(): { year: number; month: number } {
     .map(Number)
   return { year, month }
 }
+
+// Data de hoje em Brasília no formato YYYY-MM-DD, como o filtro de dia espera.
+export function todayBR(): string {
+  return new Intl.DateTimeFormat('en-CA', {
+    timeZone: TIME_ZONE,
+    year: 'numeric',
+    month: '2-digit',
+    day: '2-digit',
+  }).format(new Date())
+}
