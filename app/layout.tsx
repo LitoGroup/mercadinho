@@ -1,5 +1,6 @@
 import type { Metadata, Viewport } from 'next'
 import { Montserrat } from 'next/font/google'
+import { CartProvider } from '@/components/cart-provider'
 import { ServiceWorker } from '@/components/service-worker'
 import './globals.css'
 
@@ -40,7 +41,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     <html lang="pt-BR">
       <body className={`${montserrat.variable} font-sans antialiased`}>
         <ServiceWorker />
-        {children}
+        <CartProvider>{children}</CartProvider>
       </body>
     </html>
   )

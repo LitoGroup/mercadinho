@@ -25,11 +25,11 @@ export function StockControls({ productId, stock }: { productId: string; stock: 
 
   return (
     <div>
-      <div className="flex items-center justify-end gap-1">
+      <div className="flex items-center justify-end gap-2">
         <button
           onClick={() => run(() => adjustStock(productId, -1))}
           disabled={pending || stock === 0}
-          className="h-8 w-8 rounded-lg border-2 border-texto/15 font-bold text-texto/70 hover:bg-cinza-claro disabled:opacity-30"
+          className="h-12 w-12 rounded-xl border-2 border-texto/12 text-xl font-bold text-texto/70 hover:bg-cinza-claro disabled:opacity-30"
           aria-label="Tirar 1 do estoque"
         >
           −
@@ -46,7 +46,7 @@ export function StockControls({ productId, stock }: { productId: string; stock: 
               if (e.key === 'Enter') run(() => setStock(productId, Number(value || 0)))
               if (e.key === 'Escape') setEditing(false)
             }}
-            className="h-8 w-14 rounded-lg border-2 border-azul text-center font-bold focus:outline-none"
+            className="h-12 w-16 rounded-xl border-2 border-azul text-center text-lg font-bold focus:outline-none"
           />
         ) : (
           <button
@@ -55,7 +55,7 @@ export function StockControls({ productId, stock }: { productId: string; stock: 
               setEditing(true)
             }}
             disabled={pending}
-            className={`h-8 min-w-14 rounded-lg px-2 font-bold ${
+            className={`h-12 min-w-16 rounded-xl px-3 text-lg font-bold ${
               stock === 0
                 ? 'bg-erro/10 text-erro-escuro'
                 : stock <= 5
@@ -71,7 +71,7 @@ export function StockControls({ productId, stock }: { productId: string; stock: 
         <button
           onClick={() => run(() => adjustStock(productId, 1))}
           disabled={pending}
-          className="h-8 w-8 rounded-lg border-2 border-texto/15 font-bold text-texto/70 hover:bg-cinza-claro disabled:opacity-30"
+          className="h-12 w-12 rounded-xl border-2 border-texto/12 text-xl font-bold text-texto/70 hover:bg-cinza-claro disabled:opacity-30"
           aria-label="Somar 1 ao estoque"
         >
           +
@@ -79,7 +79,7 @@ export function StockControls({ productId, stock }: { productId: string; stock: 
         <button
           onClick={() => run(() => adjustStock(productId, 10))}
           disabled={pending}
-          className="h-8 rounded-lg border-2 border-texto/15 px-1.5 text-xs font-bold text-texto/70 hover:bg-cinza-claro disabled:opacity-30"
+          className="h-12 rounded-xl border-2 border-texto/12 px-3.5 text-sm font-bold text-texto/70 hover:bg-cinza-claro disabled:opacity-30"
           aria-label="Somar 10 ao estoque"
         >
           +10
